@@ -25,7 +25,12 @@ namespace restful_api_with_aspnet.Controllers
             }
         }
 
-
+        // GET: api/values
+        [HttpGet]
+        public IEnumerable<TodoItem> Get()
+        {
+            return _context.TodoItems.ToList();
+        }
 
 
 
