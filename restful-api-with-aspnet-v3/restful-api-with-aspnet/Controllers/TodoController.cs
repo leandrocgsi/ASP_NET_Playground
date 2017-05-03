@@ -32,6 +32,12 @@ namespace restful_api_with_aspnet.Controllers
             return _context.TodoItems.ToList();
         }
 
+        // GET api/values/5
+        [HttpGet("{id}", Name = "GetTodo")]
+        public string Get(int id)
+        {
+            return "value";
+        }
 
 
 
