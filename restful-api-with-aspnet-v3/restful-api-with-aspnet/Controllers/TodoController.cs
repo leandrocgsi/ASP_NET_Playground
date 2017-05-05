@@ -54,7 +54,28 @@ namespace restful_api_with_aspnet.Controllers
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
 
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody]TodoItem item)
+        {
+            if (item == null || item.Id != id)
+            {
+                return BadRequest();
+            }
 
+            var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            todo.IsComplete = item.IsComplete;
+            todo.Name = item.Name;
+
+            _context.TodoItems.Update(todo);
+            _context.SaveChanges();
+            return new NoContentResult();
+        }
 
 
     }
