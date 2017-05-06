@@ -77,6 +77,19 @@ namespace restful_api_with_aspnet.Controllers
             return new NoContentResult();
         }
 
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
 
+            _context.TodoItems.Remove(todo);
+            _context.SaveChanges();
+            return new NoContentResult();
+        }
     }
 }
