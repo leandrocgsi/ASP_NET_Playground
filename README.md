@@ -1,2 +1,2 @@
-# ASP_NET_Playground
+# ASP NET Playground
 This is my ASP.NET Core Playground
