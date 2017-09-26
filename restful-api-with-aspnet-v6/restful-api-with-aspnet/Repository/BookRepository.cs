@@ -13,7 +13,7 @@ namespace restful_api_with_aspnet.Repository
         public BookRepository()
         {
             this.books = new ConcurrentDictionary<string, Book>();
-            this.Add(new Book { Title = "RESTful API with ASP.NET Core MVC 1.0", Author = "Nick Soper" });
+            this.Add(new Book { Title = "RESTful API with ASP.NET Core MVC 1.0", Author = "Leandro Costa" });
         }
 
         public void Add(Book book)
