@@ -20,8 +20,7 @@ namespace restful_api_with_aspnet
             services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             //services.AddDbContext<ContactsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-
+            
             //using Dependency Injection
             services.AddSingleton<IBookRepository, BookRepository>();
             services.AddSingleton<IContactsRepository, ContactsRepository>();
