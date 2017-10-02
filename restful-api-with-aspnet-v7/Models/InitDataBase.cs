@@ -3,16 +3,15 @@ using System.Linq;
 
 namespace restful_api_with_aspnet.Models
 {
-    public static class InicializaBD
+    public static class InitDataBase
     {
         public static void Initialize(MySQLContext context)
         {
             context.Database.EnsureCreated();
 
-            // Procura por livros
             if (context.Livros.Any())
             {
-                return;   //O BD foi alimentado
+                return;
             }
 
             var livros = new Livro[]

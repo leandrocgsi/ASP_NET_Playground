@@ -67,7 +67,7 @@ namespace restful_api_with_aspnet
 
             app.UseMvc();
 
-            InicializaBD.Initialize(contexto);
+            InitDataBase.Initialize(contexto);
         }
     }
 }
