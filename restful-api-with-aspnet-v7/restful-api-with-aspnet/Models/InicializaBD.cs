@@ -5,7 +5,7 @@ namespace restful_api_with_aspnet.Models
 {
     public static class InicializaBD
     {
-        public static void Initialize(LivroContexto context)
+        public static void Initialize(MySQLContext context)
         {
             context.Database.EnsureCreated();
 

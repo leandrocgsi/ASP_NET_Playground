@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
@@ -34,7 +31,7 @@ namespace restful_api_with_aspnet
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration["ConexaoMySql:MySqlConnectionString"];
-            services.AddDbContext<LivroContexto>(options =>
+            services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
 
@@ -54,7 +51,7 @@ namespace restful_api_with_aspnet
             services.AddSingleton<IContactsRepository, ContactsRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, LivroContexto contexto)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext contexto)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

@@ -2,9 +2,9 @@
 
 namespace restful_api_with_aspnet.Models
 {
-    public class LivroContexto : DbContext
+    public class MySQLContext : DbContext
     {
-        public LivroContexto(DbContextOptions<LivroContexto> options) : base(options)
+        public MySQLContext(DbContextOptions<MySQLContext> options) : base(options)
         {
         }
         public DbSet<Livro> Livros { get; set; }

@@ -9,20 +9,20 @@ namespace restful_api_with_aspnet.Controllers
     [Route("api/[controller]")]
     public class LivrosController : Controller
     {
-        private readonly LivroContexto _context;
+        private readonly MySQLContext _context;
 
-        public LivrosController(LivroContexto context)
+        public LivrosController(MySQLContext context)
         {
             _context = context;    
         }
 
-        // GET: Livros
+        [HttpGet(Name = "/Livros")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Livros.ToListAsync());
         }
 
-        // GET: Livros/Details/5
+        /*[HttpGet(Name = "/Livros/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,15 +40,12 @@ namespace restful_api_with_aspnet.Controllers
             return View(livro);
         }
 
-        // GET: Livros/Create
+        [HttpGet(Name = "/Livros/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Livros/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Autor,Preco,Lancamento")] Livro livro)
@@ -62,7 +59,7 @@ namespace restful_api_with_aspnet.Controllers
             return View(livro);
         }
 
-        // GET: Livros/Edit/5
+        [HttpGet(Name = "/Livros/Edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,10 +75,7 @@ namespace restful_api_with_aspnet.Controllers
             return View(livro);
         }
 
-        // POST: Livros/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost(Name = "/Livros/Edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Autor,Preco,Lancamento")] Livro livro)
         {
@@ -113,7 +107,7 @@ namespace restful_api_with_aspnet.Controllers
             return View(livro);
         }
 
-        // GET: Livros/Delete/5
+        [HttpGet(Name = "/Livros/Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,8 +125,7 @@ namespace restful_api_with_aspnet.Controllers
             return View(livro);
         }
 
-        // POST: Livros/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost(Name = "/Livros/Delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -145,6 +138,6 @@ namespace restful_api_with_aspnet.Controllers
         private bool LivroExists(int id)
         {
             return _context.Livros.Any(e => e.Id == id);
-        }
+        }*/
     }
 }
