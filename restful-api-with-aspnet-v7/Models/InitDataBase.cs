@@ -9,19 +9,19 @@ namespace restful_api_with_aspnet.Models
         {
             context.Database.EnsureCreated();
 
-            if (context.Livros.Any())
+            if (context.Books.Any())
             {
                 return;
             }
 
-            var livros = new Livro[]
+            var books = new Book[]
             {
-              new Livro{Nome="ASP, ADO Banco de dados na web", Autor="Macoratti", Preco=3.99M, Lancamento= DateTime.Now},
-              new Livro{Nome="A Cabana", Autor="Willian P. Young", Preco=29.55M, Lancamento=DateTime.Now},
+              new Book{Title="ASP, ADO Banco de dados na web", Author="Macoratti", Price=3.99M, LaunchDate = DateTime.Now},
+              new Book{Title="A Cabana", Author="Willian P. Young", Price=29.55M, LaunchDate = DateTime.Now},
             };
-            foreach (Livro p in livros)
+            foreach (Book p in books)
             {
-                context.Livros.Add(p);
+                context.Books.Add(p);
             }
             context.SaveChanges();
         }
