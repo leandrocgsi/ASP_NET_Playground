@@ -6,7 +6,6 @@ namespace restful_api_with_aspnet.Models
     {
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { }
 
-        public DbSet<Livro> Livros { get; set; }
         public DbSet<Film> Films { get; set; }
         public DbSet<Book> Books { get; set; }
     }

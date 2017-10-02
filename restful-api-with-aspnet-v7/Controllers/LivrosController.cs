@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace restful_api_with_aspnet.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     public class LivrosController : Controller
     {
-        private readonly MySQLContext _context;
+        /*private readonly MySQLContext _context;
 
         public LivrosController(MySQLContext context)
         {
@@ -22,7 +22,7 @@ namespace restful_api_with_aspnet.Controllers
             return View(await _context.Livros.ToListAsync());
         }
 
-        /*[HttpGet(Name = "/Livros/Details/{id}")]
+        [HttpGet(Name = "/Livros/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
