@@ -1,5 +1,0 @@
-﻿{
-  "ConnectionStrings": {
-    "DataAccessMySqlProvider": "server=localhost;userid=root;password=;database=restful_api;"
-  }
-}
