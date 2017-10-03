@@ -9,11 +9,20 @@ namespace restful_api_with_aspnet.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
+        private readonly MySQLContext _context;
+
         private readonly IBookRepository books;
         private readonly ILogger logger;
 
-        public BooksController(IBookRepository books, ILogger<BooksController> logger)
+        /*public BooksController(IBookRepository books, ILogger<BooksController> logger)
         {
+            this.books = books;
+            this.logger = logger;
+        }*/
+
+        public BooksController(MySQLContext context, IBookRepository books, ILogger<BooksController> logger)
+        {
+            _context = context;
             this.books = books;
             this.logger = logger;
         }
@@ -21,6 +30,7 @@ namespace restful_api_with_aspnet.Controllers
         [HttpGet]
         public IEnumerable<Book> GetAll()
         {
+            //_context.Books.ToListAsync();
             return this.books.GetAll();
         }
 
@@ -44,11 +54,12 @@ namespace restful_api_with_aspnet.Controllers
                 return this.BadRequest();
             }
 
-            this.books.Add(book);
-
             this.logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
 
-            return this.CreatedAtRoute("GetBook", new { id = book.Id }, book);
+            _context.Books.Add(book);
+            var returnBook = _context.SaveChanges();
+            //return returnBook;
+            return new NoContentResult();
         }
 
         [HttpPut("{id}")]
