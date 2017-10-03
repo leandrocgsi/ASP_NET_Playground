@@ -3,6 +3,9 @@ using restful_api_with_aspnet.Repository;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace restful_api_with_aspnet.Controllers
 {
@@ -14,12 +17,6 @@ namespace restful_api_with_aspnet.Controllers
         private readonly IBookRepository books;
         private readonly ILogger logger;
 
-        /*public BooksController(IBookRepository books, ILogger<BooksController> logger)
-        {
-            this.books = books;
-            this.logger = logger;
-        }*/
-
         public BooksController(MySQLContext context, IBookRepository books, ILogger<BooksController> logger)
         {
             _context = context;
@@ -28,10 +25,9 @@ namespace restful_api_with_aspnet.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Book> GetAll()
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            //_context.Books.ToListAsync();
-            return this.books.GetAll();
+            return await _context.Books.ToListAsync();
         }
 
         [HttpGet("{id}", Name = "GetBook")]
