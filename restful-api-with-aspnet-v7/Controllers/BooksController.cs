@@ -58,8 +58,7 @@ namespace restful_api_with_aspnet.Controllers
 
             _context.Books.Add(book);
             var returnBook = _context.SaveChanges();
-            //return returnBook;
-            return new NoContentResult();
+            return new ObjectResult(returnBook);
         }
 
         [HttpPut("{id}")]
@@ -76,7 +75,7 @@ namespace restful_api_with_aspnet.Controllers
                 return this.NotFound();
             }
 
-            this.books.Update(book);
+            var returnBook = _context.Update(book);
 
             this.logger.LogTrace(
                 "Updated {0} by {1} to {2} by {3}",
@@ -85,7 +84,7 @@ namespace restful_api_with_aspnet.Controllers
                 book.Title,
                 book.Author);
 
-            return new NoContentResult();
+            return new ObjectResult(returnBook);
         }
 
         [HttpDelete("{id}")]
