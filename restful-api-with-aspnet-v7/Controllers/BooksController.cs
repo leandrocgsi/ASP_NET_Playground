@@ -31,9 +31,13 @@ namespace restful_api_with_aspnet.Controllers
         }
 
         [HttpGet("{id}", Name = "GetBook")]
-        public IActionResult GetById(string id)
+        public async Task<IActionResult> GetByIdAsync(string id)
         {
-            var book = this.books.Find(id);
+            if (id == null || "".Equals(id))
+            {
+                return NotFound();
+            }
+            var book = await _context.Books.SingleOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
                 return this.NotFound();
@@ -89,6 +93,11 @@ namespace restful_api_with_aspnet.Controllers
         {
             this.books.Remove(id);
             return new NoContentResult();
+        }
+
+        private bool LivroExists(string id)
+        {
+            return _context.Books.Any(e => e.Id.Equals(id));
         }
     }
 }
