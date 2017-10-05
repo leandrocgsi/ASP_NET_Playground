@@ -9,6 +9,6 @@ namespace restful_api_with_aspnet.Repository
         IEnumerable<Book> GetAll();
         Book Find(string id);
         Book Remove(string id);
-        void Update(Book book);
+        Book Update(Book book);
     }
 }

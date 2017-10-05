@@ -14,13 +14,13 @@ namespace restful_api_with_aspnet.Controllers
     {
         private readonly MySQLContext _context;
 
-        private readonly IBookRepository books;
+        private readonly IBookRepository bookRepository;
         private readonly ILogger logger;
 
-        public BooksController(MySQLContext context, IBookRepository books, ILogger<BooksController> logger)
+        public BooksController(MySQLContext context, IBookRepository bookRepository, ILogger<BooksController> logger)
         {
             _context = context;
-            this.books = books;
+            this.bookRepository = bookRepository;
             this.logger = logger;
         }
 
@@ -75,7 +75,7 @@ namespace restful_api_with_aspnet.Controllers
             //    return this.NotFound();
             //}
 
-            var returnBook = _context.Update(book);
+            var returnBook = bookRepository.Update(book);
 
             this.logger.LogTrace(
                 "Updated {0} by {1} to {2} by {3}",
@@ -90,7 +90,7 @@ namespace restful_api_with_aspnet.Controllers
         [HttpDelete("{id}")]
         public NoContentResult Delete(string id)
         {
-            this.books.Remove(id);
+            this.bookRepository.Remove(id);
             return new NoContentResult();
         }
 
