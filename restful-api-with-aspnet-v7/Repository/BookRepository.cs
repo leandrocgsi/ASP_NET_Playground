@@ -53,6 +53,7 @@ namespace restful_api_with_aspnet.Repository
 
         public Book Update(Book book)
         {
+            //HACK: See https://stackoverflow.com/questions/25894587/how-to-update-record-using-entity-framework-6
             _context.Books.Attach(book);
             _context.SaveChanges();
             return book;

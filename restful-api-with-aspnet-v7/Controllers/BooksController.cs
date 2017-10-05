@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace restful_api_with_aspnet.Controllers
 {
+    //HACK: See https://www.packtpub.com/application-development/restful-web-services-aspnet-core-video
+
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
