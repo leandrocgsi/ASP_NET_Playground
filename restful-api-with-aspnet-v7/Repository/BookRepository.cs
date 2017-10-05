@@ -10,6 +10,8 @@ namespace restful_api_with_aspnet.Repository
         private readonly ConcurrentDictionary<string, Book> books;
         private int nextId = 0;
 
+        private readonly MySQLContext _context;
+
         public BookRepository()
         {
             this.books = new ConcurrentDictionary<string, Book>();
@@ -51,6 +53,9 @@ namespace restful_api_with_aspnet.Repository
         public void Update(Book book)
         {
             this.books[book.Id] = book;
+            var entity = _context.Books.Find(book.Id);
+            if (entity == null) return;
+            _context.Entry(entity).CurrentValues.SetValues(book);
         }
     }
 }

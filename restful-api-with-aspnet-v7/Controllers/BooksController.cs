@@ -64,16 +64,16 @@ namespace restful_api_with_aspnet.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(string id, [FromBody]Book book)
         {
-            if (book.Id != id)
-            {
-                return this.BadRequest();
-            }
+            //if (book.Id != id)
+            //{
+            //    return this.BadRequest();
+            //}
 
-            var existingBook = this.books.Find(id);
-            if (existingBook == null)
-            {
-                return this.NotFound();
-            }
+            var existingBook = _context.Books.Find(book.Id);
+            //if (existingBook == null)
+            //{
+            //    return this.NotFound();
+            //}
 
             var returnBook = _context.Update(book);
 
