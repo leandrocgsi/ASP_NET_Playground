@@ -87,7 +87,7 @@ namespace restful_api_with_aspnet.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public IActionResult Delete(string id)
         {
             if (id == null) return NotFound();
 
