@@ -63,28 +63,22 @@ namespace restful_api_with_aspnet.Controllers
             return new ObjectResult(returnBook);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(string id, [FromBody]Book book)
+        [HttpPut]
+        public IActionResult Update([FromBody]Book book)
         {
-            //if (book.Id != id)
-            //{
-            //    return this.BadRequest();
-            //}
-
+ //               return this.BadRequest();
+ 
             var existingBook = _context.Books.Find(book.Id);
             //if (existingBook == null)
             //{
             //    return this.NotFound();
             //}
 
-            var returnBook = bookRepository.Update(book);
-
-            this.logger.LogTrace(
-                "Updated {0} by {1} to {2} by {3}",
-                existingBook.Title,
-                existingBook.Author,
-                book.Title,
-                book.Author);
+            //var returnBook = bookRepository.Update(book);
+            _context.Books.Attach(book);
+            var returnBook = _context.SaveChanges();
+            
+            this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", existingBook.Title, existingBook.Author, book.Title, book.Author);
 
             return new ObjectResult(returnBook);
         }

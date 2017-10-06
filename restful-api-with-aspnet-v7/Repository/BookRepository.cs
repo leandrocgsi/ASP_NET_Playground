@@ -10,11 +10,11 @@ namespace restful_api_with_aspnet.Repository
         private readonly ConcurrentDictionary<string, Book> books;
         private int nextId = 0;
 
-        private readonly MySQLContext _context;
+        //private readonly MySQLContext _context;
 
-        public BookRepository(MySQLContext context)
+        public BookRepository(/*MySQLContext context*/)
         {
-            _context = context;
+            //_context = context;
             this.books = new ConcurrentDictionary<string, Book>();
             this.Add(new Book { Title = "RESTful API with ASP.NET Core MVC 1.0", Author = "Leandro Costa" });
         }
@@ -54,8 +54,8 @@ namespace restful_api_with_aspnet.Repository
         public Book Update(Book book)
         {
             //HACK: See https://stackoverflow.com/questions/25894587/how-to-update-record-using-entity-framework-6
-            _context.Books.Attach(book);
-            _context.SaveChanges();
+            //_context.Books.Attach(book);
+            //_context.SaveChanges();
             return book;
         }
     }
