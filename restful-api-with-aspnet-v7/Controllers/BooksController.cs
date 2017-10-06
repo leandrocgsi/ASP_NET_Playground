@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace restful_api_with_aspnet.Controllers
 {
@@ -66,27 +67,30 @@ namespace restful_api_with_aspnet.Controllers
         [HttpPut]
         public IActionResult Update([FromBody]Book book)
         {
- //               return this.BadRequest();
- 
-            var existingBook = _context.Books.Find(book.Id);
-            //if (existingBook == null)
-            //{
-            //    return this.NotFound();
-            //}
+            var returnBook = new Book();
+            var result = _context.Books.SingleOrDefault(b => b.Id == book.Id);
+            if (result != null)
+            {
+                try
+                {
+                    _context.Entry(result).CurrentValues.SetValues(book);
 
-            //var returnBook = bookRepository.Update(book);
-            _context.Books.Attach(book);
-            var returnBook = _context.SaveChanges();
-            
-            this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", existingBook.Title, existingBook.Author, book.Title, book.Author);
-
-            return new ObjectResult(returnBook);
+                    _context.SaveChanges();
+                    this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return new ObjectResult(result);
         }
 
         [HttpDelete("{id}")]
         public NoContentResult Delete(string id)
         {
-            this.bookRepository.Remove(id);
+            //HACK: Remove this mock
+            _context.Books.Remove(new Book());
             return new NoContentResult();
         }
 
