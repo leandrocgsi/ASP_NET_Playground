@@ -87,15 +87,16 @@ namespace restful_api_with_aspnet.Controllers
         }
 
         [HttpDelete("{id}")]
-        public NoContentResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
+            if (id == null) return NotFound();
+
             var result = _context.Books.SingleOrDefault(b => b.Id == id);
-            if (result == null)
-            {
-                //HACK: Remove this mock
-                //return this.BadRequest();
-            }
+
+            if (result == null) return NotFound();
+
             _context.Books.Remove(result);
+            _context.SaveChanges();
             return new NoContentResult();
         }
 
