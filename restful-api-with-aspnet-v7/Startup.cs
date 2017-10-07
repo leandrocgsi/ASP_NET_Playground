@@ -51,7 +51,7 @@ namespace restful_api_with_aspnet
             services.AddSingleton<IContactsRepository, ContactsRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext MySQLContext)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -65,9 +65,13 @@ namespace restful_api_with_aspnet
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.Run(async context => {
+                context.Response.Redirect("swagger/");
+            });
+
             app.UseMvc();
 
-            InitDataBase.Initialize(context);
+            InitDataBase.Initialize(MySQLContext);
         }
     }
 }
