@@ -10,5 +10,6 @@ namespace restful_api_with_aspnet.Repository
         Book Find(string id);
         Book Remove(string id);
         Book Update(Book book);
+        bool BookExists(string id);
     }
 }

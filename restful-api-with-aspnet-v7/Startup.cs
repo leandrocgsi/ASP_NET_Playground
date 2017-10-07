@@ -51,7 +51,7 @@ namespace restful_api_with_aspnet
             services.AddSingleton<IContactsRepository, ContactsRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext contexto)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -67,7 +67,7 @@ namespace restful_api_with_aspnet
 
             app.UseMvc();
 
-            InitDataBase.Initialize(contexto);
+            InitDataBase.Initialize(context);
         }
     }
 }

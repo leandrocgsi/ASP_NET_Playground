@@ -15,52 +15,36 @@ namespace restful_api_with_aspnet.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private readonly MySQLContext _context;
 
-        private readonly IBookRepository _bookRepository;
+        private IBookRepository _bookRepository { get; set; }
         private readonly ILogger _logger;
 
-        public BooksController(MySQLContext context, IBookRepository bookRepository, ILogger<BooksController> logger)
+        public BooksController(IBookRepository bookRepository, ILogger<BooksController> logger)
         {
-            _context = context;
             _bookRepository = bookRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public Task<IEnumerable<Book>> GetAllAsync()
+        public IEnumerable<Book> GetAllAsync()
         {
             return _bookRepository.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetBook")]
-        public async Task<IActionResult> GetByIdAsync(string id)
+        public IActionResult GetByIdAsync(string id)
         {
-            if (id == null || "".Equals(id))
-            {
-                return NotFound();
-            }
-            var book = await _context.Books.SingleOrDefaultAsync(m => m.Id == id);
-            if (book == null)
-            {
-                return this.NotFound();
-            }
-
+            if (id == null || "".Equals(id)) return BadRequest();
+            var book = _bookRepository.Find(id);
+            if (book == null) return this.NotFound();
             return this.Ok(book);
         }
 
         [HttpPost]
         public IActionResult Create([FromBody]Book book)
         {
-            if (book == null)
-            {
-                return this.BadRequest();
-            }
-
-            _logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
-
-            _context.Books.Add(book);
-            var returnBook = _context.SaveChanges();
+            if (book == null) return BadRequest();
+            var returnBook = _bookRepository.Add(book);
             return new ObjectResult(returnBook);
         }
 
@@ -68,41 +52,20 @@ namespace restful_api_with_aspnet.Controllers
         public IActionResult Update([FromBody]Book book)
         {
             var returnBook = new Book();
-            var result = _context.Books.SingleOrDefault(b => b.Id == book.Id);
-            if (result != null)
-            {
-                try
-                {
-                    _context.Entry(result).CurrentValues.SetValues(book);
-
-                    _context.SaveChanges();
-                    _logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-            }
+            var result = _bookRepository.BookExists(book.Id);
+            if (!result) return this.BadRequest();
+            _bookRepository.Update(book);
             return new ObjectResult(result);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            if (id == null) return NotFound();
-
-            var result = _context.Books.SingleOrDefault(b => b.Id == id);
-
-            if (result == null) return NotFound();
-
-            _context.Books.Remove(result);
-            _context.SaveChanges();
+            if (id == null || "".Equals(id)) return BadRequest();
+            var result = _bookRepository.BookExists(id);
+            if (!result) return NotFound();
+            _bookRepository.Remove(id);
             return new NoContentResult();
-        }
-
-        private bool LivroExists(string id)
-        {
-            return _context.Books.Any(e => e.Id.Equals(id));
         }
     }
 }

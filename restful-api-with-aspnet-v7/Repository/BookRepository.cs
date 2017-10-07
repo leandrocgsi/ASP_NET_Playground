@@ -1,23 +1,20 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using restful_api_with_aspnet.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace restful_api_with_aspnet.Repository
 {
     public class BookRepository : IBookRepository
     {
-        private readonly ConcurrentDictionary<string, Book> books;
         private readonly ILogger logger;
 
-        private readonly MySQLContext _context = new MySQLContext();
+        private readonly MySQLContext _context;
 
-        public BookRepository(/*MySQLContext context*/ILogger<BookRepository> logger)
+        public BookRepository(MySQLContext context, ILogger<BookRepository> logger)
         {
-            //_context = context;
+            _context = context;
             this.logger = logger;            
         }
 
@@ -34,7 +31,6 @@ namespace restful_api_with_aspnet.Repository
         public Book Add(Book book)
         {
             this.logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
-
             _context.Books.Add(book);
             _context.SaveChanges();
             return book;
@@ -48,7 +44,6 @@ namespace restful_api_with_aspnet.Repository
                 try
                 {
                     _context.Entry(result).CurrentValues.SetValues(book);
-
                     _context.SaveChanges();
                     this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
                 }
@@ -66,6 +61,11 @@ namespace restful_api_with_aspnet.Repository
             _context.Books.Remove(result);
             _context.SaveChanges();
             return result;
+        }
+
+        public bool BookExists(string id)
+        {
+            return _context.Books.Any(e => e.Id.Equals(id));
         }
 
         private Book GetBook(string id)
