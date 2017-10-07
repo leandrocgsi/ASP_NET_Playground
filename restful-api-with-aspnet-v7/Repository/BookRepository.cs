@@ -2,61 +2,75 @@
 using System.Collections.Generic;
 using System.Linq;
 using restful_api_with_aspnet.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace restful_api_with_aspnet.Repository
 {
     public class BookRepository : IBookRepository
     {
         private readonly ConcurrentDictionary<string, Book> books;
-        private int nextId = 0;
+        private readonly ILogger logger;
 
-        //private readonly MySQLContext _context;
+        private readonly MySQLContext _context = new MySQLContext();
 
-        public BookRepository(/*MySQLContext context*/)
+        public BookRepository(/*MySQLContext context*/ILogger<BookRepository> logger)
         {
             //_context = context;
-            this.books = new ConcurrentDictionary<string, Book>();
-            this.Add(new Book { Title = "RESTful API with ASP.NET Core MVC 1.0", Author = "Leandro Costa" });
-        }
-
-        public void Add(Book book)
-        {
-            if (book == null)
-            {
-                return;
-            }
-
-            this.nextId++;
-            book.Id = nextId.ToString();
-
-            this.books.TryAdd(book.Id, book);
-        }
-
-        public Book Find(string id)
-        {
-            Book book;
-            this.books.TryGetValue(id, out book);
-            return book;
+            this.logger = logger;            
         }
 
         public IEnumerable<Book> GetAll()
         {
-            return this.books.Values.OrderBy(b => b.Id);
+            return _context.Books.ToList();
         }
 
-        public Book Remove(string id)
+        public Book Find(string id)
         {
-            Book book;
-            this.books.TryRemove(id, out book);
+            return _context.Books.SingleOrDefault(m => m.Id == id);
+        }
+
+        public Book Add(Book book)
+        {
+            this.logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
+
+            _context.Books.Add(book);
+            _context.SaveChanges();
             return book;
         }
 
         public Book Update(Book book)
         {
-            //HACK: See https://stackoverflow.com/questions/25894587/how-to-update-record-using-entity-framework-6
-            //_context.Books.Attach(book);
-            //_context.SaveChanges();
-            return book;
+            var result = _context.Books.SingleOrDefault(b => b.Id == book.Id);
+            if (result != null)
+            {
+                try
+                {
+                    _context.Entry(result).CurrentValues.SetValues(book);
+
+                    _context.SaveChanges();
+                    this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return result;
+        }
+
+        public Book Remove(string id)
+        {
+            var result = GetBook(id);
+            _context.Books.Remove(result);
+            _context.SaveChanges();
+            return result;
+        }
+
+        private Book GetBook(string id)
+        {
+            return _context.Books.SingleOrDefault(b => b.Id == id);
         }
     }
 }

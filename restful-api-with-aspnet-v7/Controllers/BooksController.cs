@@ -17,20 +17,20 @@ namespace restful_api_with_aspnet.Controllers
     {
         private readonly MySQLContext _context;
 
-        private readonly IBookRepository bookRepository;
-        private readonly ILogger logger;
+        private readonly IBookRepository _bookRepository;
+        private readonly ILogger _logger;
 
         public BooksController(MySQLContext context, IBookRepository bookRepository, ILogger<BooksController> logger)
         {
             _context = context;
-            this.bookRepository = bookRepository;
-            this.logger = logger;
+            _bookRepository = bookRepository;
+            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Book>> GetAllAsync()
+        public Task<IEnumerable<Book>> GetAllAsync()
         {
-            return await _context.Books.ToListAsync();
+            return _bookRepository.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetBook")]
@@ -57,7 +57,7 @@ namespace restful_api_with_aspnet.Controllers
                 return this.BadRequest();
             }
 
-            this.logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
+            _logger.LogTrace("Added {0} by {1}", book.Title, book.Author);
 
             _context.Books.Add(book);
             var returnBook = _context.SaveChanges();
@@ -76,7 +76,7 @@ namespace restful_api_with_aspnet.Controllers
                     _context.Entry(result).CurrentValues.SetValues(book);
 
                     _context.SaveChanges();
-                    this.logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
+                    _logger.LogTrace("Updated {0} by {1} to {2} by {3}", result.Title, result.Author, book.Title, book.Author);
                 }
                 catch (Exception ex)
                 {

@@ -5,7 +5,7 @@ namespace restful_api_with_aspnet.Repository
 {
     public interface IBookRepository
     {
-        void Add(Book book);
+        Book Add(Book book);
         IEnumerable<Book> GetAll();
         Book Find(string id);
         Book Remove(string id);
