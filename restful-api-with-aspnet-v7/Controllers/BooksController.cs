@@ -37,8 +37,8 @@ namespace RestfulAPIWithAspNet.Controllers
             return this.Ok(book);
         }
 
-        [HttpPost("PagedSearch")]
-        public IActionResult PagedSearch([FromBody]PagedSearchDTO<Person> pagedSearchDTO)
+        [HttpPost("/PagedSearch")]
+        public IActionResult Post([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
 
             return new ObjectResult(pagedSearchDTO);
