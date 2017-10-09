@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using restful_api_with_aspnet.Models;
+using RestfulAPIWithAspNet.Models;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace restful_api_with_aspnet.Repository
+namespace RestfulAPIWithAspNet.Repository
 {
     public class BookRepository : IBookRepository
     {

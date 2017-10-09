@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace restful_api_with_aspnet.Models
+namespace RestfulAPIWithAspNet.Models
 {
     public class Contacts
     {

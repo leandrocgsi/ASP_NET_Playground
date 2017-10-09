@@ -8,10 +8,10 @@ using Newtonsoft.Json.Serialization;
 
 using Swashbuckle.AspNetCore.Swagger;
 
-using restful_api_with_aspnet.Repository;
-using restful_api_with_aspnet.Models;
+using RestfulAPIWithAspNet.Repository;
+using RestfulAPIWithAspNet.Models;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Startup
     {

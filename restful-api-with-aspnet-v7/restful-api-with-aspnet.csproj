@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Utils\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

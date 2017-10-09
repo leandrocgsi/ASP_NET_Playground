@@ -1,14 +1,11 @@
-﻿using restful_api_with_aspnet.Models;
-using restful_api_with_aspnet.Repository;
+﻿using RestfulAPIWithAspNet.Models;
+using RestfulAPIWithAspNet.Repository;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
+using RestfulAPIWithAspNet.Data.DTO;
 
-namespace restful_api_with_aspnet.Controllers
+namespace RestfulAPIWithAspNet.Controllers
 {
     //HACK: See https://www.packtpub.com/application-development/restful-web-services-aspnet-core-video
 
@@ -38,6 +35,13 @@ namespace restful_api_with_aspnet.Controllers
             var book = _bookRepository.Find(id);
             if (book == null) return this.NotFound();
             return this.Ok(book);
+        }
+
+        [HttpPost("PagedSearch")]
+        public IActionResult PagedSearch([FromBody]PagedSearchDTO<Person> pagedSearchDTO)
+        {
+
+            return new ObjectResult(pagedSearchDTO);
         }
 
         [HttpPost]

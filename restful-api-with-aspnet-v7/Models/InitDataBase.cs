@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace restful_api_with_aspnet.Models
+namespace RestfulAPIWithAspNet.Models
 {
     public static class InitDataBase
     {
