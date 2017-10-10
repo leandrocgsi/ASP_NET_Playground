@@ -2,6 +2,11 @@
 using RestfulAPIWithAspNet.Test.Data.POCO;
 using System;
 using System.Collections.Generic;
+using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Model;
+using RestfulAPIWithAspNet.Tests.Utils.Data.POCO;
+using RestfulAPIWithAspNet.Utils.Data;
 
 namespace RestfulAPIWithAspNet.Test
 {
