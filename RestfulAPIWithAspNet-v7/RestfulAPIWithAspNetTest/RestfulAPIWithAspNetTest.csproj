@@ -7,8 +7,8 @@
     <ProjectGuid>{2829617E-E6D3-4A92-B140-8E7F937A3A46}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>restful_api_with_aspnet_test</RootNamespace>
-    <AssemblyName>restful-api-with-aspnet-test</AssemblyName>
+    <RootNamespace>RestfulAPIWithAspNetTest</RootNamespace>
+    <AssemblyName>RestfulAPIWithAspNetTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
