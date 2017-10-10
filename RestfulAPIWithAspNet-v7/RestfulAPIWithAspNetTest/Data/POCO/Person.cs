@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestfulAPIWithAspNet.Test.Data.POCO
+namespace RestfulAPIWithAspNetTest.Data.POCO
 {
     public class Person
     {

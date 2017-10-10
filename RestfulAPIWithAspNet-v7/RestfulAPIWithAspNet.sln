@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestfulAPIWithAspNet", "Res
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfulAPIWithAspNetTest", "RestfulAPIWithAspNetTest\RestfulAPIWithAspNetTest.csproj", "{2829617E-E6D3-4A92-B140-8E7F937A3A46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfulAPIWithAspNetTest2", "RestfulAPIWithAspNetTest2\RestfulAPIWithAspNetTest2\RestfulAPIWithAspNetTest2.csproj", "{52F5F8D7-AF96-4CDE-B0AE-8ACCA7D2F917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2829617E-E6D3-4A92-B140-8E7F937A3A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2829617E-E6D3-4A92-B140-8E7F937A3A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2829617E-E6D3-4A92-B140-8E7F937A3A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F5F8D7-AF96-4CDE-B0AE-8ACCA7D2F917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F5F8D7-AF96-4CDE-B0AE-8ACCA7D2F917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F5F8D7-AF96-4CDE-B0AE-8ACCA7D2F917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F5F8D7-AF96-4CDE-B0AE-8ACCA7D2F917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

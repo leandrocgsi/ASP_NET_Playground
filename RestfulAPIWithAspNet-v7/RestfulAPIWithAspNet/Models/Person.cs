@@ -4,14 +4,14 @@ namespace RestfulAPIWithAspNet.Models
 {
     public class Person
     {
-        public int idPerson { get; set; }
-        public String name { get; set; }
-        public String email { get; set; }
-        public String phone { get; set; }
-        public String cpf { get; set; }
-        public DateTime? birthDayDate { get; set; }
-        public String login { get; set; }
-        public String password { get; set; }
-        public String permission { get; set; }
+        public int IdPerson { get; set; }
+        public String Name { get; set; }
+        public String Email { get; set; }
+        public String Phone { get; set; }
+        public String Cpf { get; set; }
+        public DateTime BirthDayDate { get; set; }
+        public String Login { get; set; }
+        public String Password { get; set; }
+        public String Permission { get; set; }
     }
 }

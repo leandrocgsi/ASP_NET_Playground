@@ -1,12 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RestfulAPIWithAspNet.Test.Data.POCO;
+using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Models;
+using RestfulAPIWithAspNet.Utils.Data;
 using System;
 using System.Collections.Generic;
-using RestfulAPIWithAspNet.Data.DTO;
-using RestfulAPIWithAspNet.Data.DTO;
-using RestfulAPIWithAspNet.Model;
-using RestfulAPIWithAspNet.Tests.Utils.Data.POCO;
-using RestfulAPIWithAspNet.Utils.Data;
 
 namespace RestfulAPIWithAspNet.Test
 {
@@ -16,8 +13,8 @@ namespace RestfulAPIWithAspNet.Test
         PagedSearchDTO<Person> dto = new PagedSearchDTO<Person>();
         QueryBuilder<Person> queryBuilder = new QueryBuilder<Person>();
 
-        PagedSearchDTO<Collaborator> dtoCollaborator = new PagedSearchDTO<Collaborator>();
-        QueryBuilder<Collaborator> queryBuilderCollaborator = new QueryBuilder<Collaborator>();
+        PagedSearchDTO<Book> dtoBook = new PagedSearchDTO<Book>();
+        QueryBuilder<Book> queryBuilderBook = new QueryBuilder<Book>();
 
         [TestInitialize]
         public void setup()
@@ -104,25 +101,25 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a recuperação do realname de uma coluna no banco")]
         public void GetRealColumnNameTest()
         {
-            Assert.AreEqual("id", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("Id"));
-            Assert.AreEqual("login_ldap", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("UserId"));
-            Assert.AreEqual("collaborator_name", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("InstallationId"));
-            Assert.AreEqual("dt_record", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("LastAccess"));
-            Assert.AreEqual("status", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("Status"));
+            Assert.AreEqual("id", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("Id"));
+            Assert.AreEqual("login_ldap", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("UserId"));
+            Assert.AreEqual("collaborator_name", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("InstallationId"));
+            Assert.AreEqual("dt_record", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("LastAccess"));
+            Assert.AreEqual("status", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("Status"));
         }
 
         [TestMethod]
         [Description("Testa a recuperação do realname de uma coluna no banco")]
         public void IsDateTimeTypeTest()
         {
-            Assert.IsTrue(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("04/10/2017 19:52:07"));
-            Assert.IsTrue(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017-10-04T19:52:07.663"));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("OLIVEIRA"));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType(""));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType(null));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017"));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("10"));
-            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017-ASDFRT19:52:07.663"));
+            Assert.IsTrue(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("04/10/2017 19:52:07"));
+            Assert.IsTrue(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("2017-10-04T19:52:07.663"));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("OLIVEIRA"));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType(""));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType(null));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("2017"));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("10"));
+            Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("2017-ASDFRT19:52:07.663"));
         }
 
         public PagedSearchDTO<Person> MockDTO()
