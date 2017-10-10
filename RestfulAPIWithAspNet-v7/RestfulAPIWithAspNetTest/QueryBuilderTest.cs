@@ -47,7 +47,7 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a geração do where e das cláusulas")]
         public void GetWhereAndParametersTest()
         {
-            String whereClause = " where p.name = @name and p.email = @email and p.phone = @phone and 1 = 1 ";
+            String whereClause = " where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1 ";
             Assert.AreEqual(whereClause, queryBuilder.WithDTO(dto).GetWhereAndParameters("p"));
         }
 
@@ -58,7 +58,7 @@ namespace RestfulAPIWithAspNet.Test
             Dictionary<String, Object> filters = MockFilters();
             filters.Add("", "LEANDRO");
             dto.Filters = filters;
-            String whereClause = " where p.name = @name and p.email = @email and p.phone = @phone and 1 = 1 ";
+            String whereClause = " where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1 ";
             Assert.AreEqual(whereClause, queryBuilder.WithDTO(dto).GetWhereAndParameters("p"));
         }
 
@@ -77,7 +77,7 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a geração da query final")]
         public void GetQueryFromDTOTest()
         {
-            String selectWithParameters = "select * from Person p  where p.name = @name and p.email = @email and p.phone = @phone and 1 = 1  order by p.name asc";
+            String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc offset 0 rows fetch next 10 rows only";
             Assert.AreEqual(selectWithParameters, queryBuilder.WithDTO(dto).GetQueryFromDTO("p", "Person"));
         }
 
@@ -89,6 +89,13 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
+        [Description("Testa a geração do offset de páginação")]
+        public void GetOffSetTest()
+        {
+            Assert.AreEqual(" offset 0 rows fetch next 10 rows only", queryBuilder.WithDTO(dto).GetOffSet());
+        }
+
+        [TestMethod]
         [Description("Testa a recuperação do realname de uma coluna no banco")]
         public void GetRealColumnNameTest()
         {
@@ -97,6 +104,20 @@ namespace RestfulAPIWithAspNet.Test
             Assert.AreEqual("collaborator_name", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("InstallationId"));
             Assert.AreEqual("dt_record", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("LastAccess"));
             Assert.AreEqual("status", queryBuilderCollaborator.WithDTO(dtoCollaborator).GetRealColumnName("Status"));
+        }
+
+        [TestMethod]
+        [Description("Testa a recuperação do realname de uma coluna no banco")]
+        public void IsDateTimeTypeTest()
+        {
+            Assert.IsTrue(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("04/10/2017 19:52:07"));
+            Assert.IsTrue(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017-10-04T19:52:07.663"));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("OLIVEIRA"));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType(""));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType(null));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017"));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("10"));
+            Assert.IsFalse(queryBuilderCollaborator.WithDTO(dtoCollaborator).IsDateTimeType("2017-ASDFRT19:52:07.663"));
         }
 
         public PagedSearchDTO<Person> MockDTO()
