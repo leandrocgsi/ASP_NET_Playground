@@ -102,10 +102,6 @@ namespace RestfulAPIWithAspNet.Test
         public void GetRealColumnNameTest()
         {
             Assert.AreEqual("id", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("Id"));
-            Assert.AreEqual("login_ldap", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("UserId"));
-            Assert.AreEqual("collaborator_name", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("InstallationId"));
-            Assert.AreEqual("dt_record", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("LastAccess"));
-            Assert.AreEqual("status", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("Status"));
         }
 
         [TestMethod]
