@@ -118,6 +118,13 @@ namespace RestfulAPIWithAspNet.Test
             Assert.IsFalse(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("2017-ASDFRT19:52:07.663"));
         }
 
+        [TestMethod]
+        [Description("Testa a geração dos alias das colunas")]
+        public void TestGetColumnsAlias()
+        {
+            Assert.AreEqual("*", queryBuilder.WithDTO(dto).GetColumnsAlias());
+        }
+        
         public PagedSearchDTO<Person> MockDTO()
         {
             dto.CurrentPage = 1;
