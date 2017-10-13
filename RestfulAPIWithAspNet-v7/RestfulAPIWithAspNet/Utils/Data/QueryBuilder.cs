@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace RestfulAPIWithAspNet.Utils.Data
@@ -87,6 +88,12 @@ namespace RestfulAPIWithAspNet.Utils.Data
             return GetBaseSelectWithColumnAlias(columnsAlias, alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) + GetOffSet();
         }
 
+        public String GetQueryFromDTOWithColumnAlias(String alias, String entityName)
+        {
+            string columnsAlias = GetColumnsAlias();
+            return GetBaseSelectWithColumnAlias(columnsAlias, alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) + GetOffSet();
+        }
+
 
         public String GetBaseSelectWithColumnAlias(String columnsAlias, String alias, String entityName)
         {
@@ -114,6 +121,28 @@ namespace RestfulAPIWithAspNet.Utils.Data
             if (column == null || column.Name == null) return attributeName;
 
             return column.Name;
+        }
+
+        //SEE: https://www.codeproject.com/Articles/742461/Csharp-Using-Reflection-and-Custom-Attributes-to-M
+        public String GetColumnsAlias()
+        {
+            string columns = "";
+
+            PropertyInfo[] props = typeof(T).GetProperties();
+            Trace.WriteLine(props);
+            foreach (PropertyInfo prop in props)
+            {
+                string propName = prop.Name;
+
+                var attribute = (ColumnAttribute)prop.GetCustomAttribute(typeof(ColumnAttribute));
+                if (attribute != null)
+                {
+                    var realColumnName = attribute.Name;
+                    columns = columns + $" {realColumnName} as {propName},";
+                }
+            }
+
+            return columns.Remove(columns.Length - 1, 1) + " ";
         }
 
         public bool IsDateTimeType(string value)
