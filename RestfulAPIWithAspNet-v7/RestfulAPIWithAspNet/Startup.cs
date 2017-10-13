@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace RestfulAPIWithAspNet
 {
@@ -56,6 +57,7 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -65,13 +67,19 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            //app.Run(async context => {
-            //    context.Response.Redirect("swagger/");
-            //});
-
             app.UseMvc();
 
+            RedirectToSwaggerPage(app);
+
             InitDataBase.Initialize(context);
+        }
+
+        private static void RedirectToSwaggerPage(IApplicationBuilder app)
+        {
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
         }
     }
 }
