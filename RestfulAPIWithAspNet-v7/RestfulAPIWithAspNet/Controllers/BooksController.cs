@@ -8,6 +8,7 @@ using RestfulAPIWithAspNet.Data.DTO;
 namespace RestfulAPIWithAspNet.Controllers
 {
     //HACK: See https://www.packtpub.com/application-development/restful-web-services-aspnet-core-video
+    //SEE: https://github.com/bragil/diario-bordo and https://bragil.wordpress.com/2012/12/13/dao-generico-entity-framework-5-code-first/
 
     [Route("api/[controller]")]
     public class BooksController : ControllerBase

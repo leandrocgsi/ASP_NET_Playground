@@ -47,11 +47,11 @@ namespace RestfulAPIWithAspNet
             //services.Add(new ServiceDescriptor(typeof(MyContext), new MyContext(Configuration.GetConnectionString("DefaultConnection"))));
 
             //using Dependency Injection
-            services.AddSingleton<IBookRepository, BookRepository>();
-            services.AddSingleton<IContactsRepository, ContactsRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IContactsRepository, ContactsRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext MySQLContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -65,13 +65,13 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.Run(async context => {
-                context.Response.Redirect("swagger/");
-            });
+            //app.Run(async context => {
+            //    context.Response.Redirect("swagger/");
+            //});
 
             app.UseMvc();
 
-            InitDataBase.Initialize(MySQLContext);
+            InitDataBase.Initialize(context);
         }
     }
 }
