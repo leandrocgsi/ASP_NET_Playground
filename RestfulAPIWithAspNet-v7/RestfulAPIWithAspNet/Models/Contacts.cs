@@ -2,8 +2,9 @@
 
 namespace RestfulAPIWithAspNet.Models
 {
-    public class Contacts
+    public class Contact
     {
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool IsFamilyMember { get; set; }

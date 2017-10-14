@@ -1,40 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RestfulAPIWithAspNet.Models;
+using Microsoft.Extensions.Logging;
 
 namespace RestfulAPIWithAspNet.Repository
 {
     public class ContactsRepository : IContactsRepository
     {
-        static List<Contacts> ContactsList = new List<Contacts>();
+        private readonly ILogger logger;
 
-        public void Add(Contacts item)
+        private readonly MySQLContext _context;
+
+        public ContactsRepository(MySQLContext context, ILogger<ContactsRepository> logger)
         {
-            ContactsList.Add(item);
+            _context = context;
+            this.logger = logger;
         }
 
-        public Contacts Find(string key)
+        public void Add(Contact item)
         {
-            return ContactsList
+            _context.Contacts.Add(item);
+        }
+
+        public Contact Find(string key)
+        {
+            return _context.Contacts
                 .Where(e => e.MobilePhone.Equals(key))
                 .SingleOrDefault();
         }
 
-        public IEnumerable<Contacts> GetAll()
+        public IEnumerable<Contact> GetAll()
         {
-            return ContactsList;
+            return _context.Contacts;
         }
 
         public void Remove(string Id)
         {
-            var itemToRemove = ContactsList.SingleOrDefault(r => r.MobilePhone == Id);
+            var itemToRemove = _context.Contacts.SingleOrDefault(r => r.MobilePhone == Id);
             if (itemToRemove != null)
-                ContactsList.Remove(itemToRemove);
+                _context.Contacts.Remove(itemToRemove);
         }
 
-        public void Update(Contacts item)
+        public void Update(Contact item)
         {
-            var itemToUpdate = ContactsList.SingleOrDefault(r => r.MobilePhone == item.MobilePhone);
+            var itemToUpdate = _context.Contacts.SingleOrDefault(r => r.MobilePhone == item.MobilePhone);
             if (itemToUpdate != null)
             {
                 itemToUpdate.FirstName = item.FirstName;

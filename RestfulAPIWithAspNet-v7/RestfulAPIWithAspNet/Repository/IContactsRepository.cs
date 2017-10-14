@@ -5,10 +5,10 @@ namespace RestfulAPIWithAspNet.Repository
 {
     public interface IContactsRepository
     {
-        void Add(Contacts item);
-        IEnumerable<Contacts> GetAll();
-        Contacts Find(string key);
+        void Add(Contact item);
+        IEnumerable<Contact> GetAll();
+        Contact Find(string key);
         void Remove(string Id);
-        void Update(Contacts item);
+        void Update(Contact item);
     }
 }

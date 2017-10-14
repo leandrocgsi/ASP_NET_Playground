@@ -16,7 +16,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Contacts> GetAll()
+        public IEnumerable<Contact> GetAll()
         {
             return ContactsRepo.GetAll();
         }
@@ -33,24 +33,24 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Contacts item)
+        public IActionResult Create([FromBody] Contact item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
             ContactsRepo.Add(item);
-            return CreatedAtRoute("GetContacts", new { Controller = "Contacts", id = item.MobilePhone }, item);
+            return CreatedAtRoute("GetContacts", new { Controller = "Contact", id = item.MobilePhone }, item);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(string id, [FromBody] Contacts item)
+        public IActionResult Update([FromBody] Contact item)
         {
             if (item == null)
             {
                 return BadRequest();
             }
-            var contactObj = ContactsRepo.Find(id);
+            var contactObj = ContactsRepo.Find(item.Id);
             if (contactObj == null)
             {
                 return NotFound();
