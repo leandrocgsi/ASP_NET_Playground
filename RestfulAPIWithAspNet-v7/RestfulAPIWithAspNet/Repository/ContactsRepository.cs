@@ -20,6 +20,7 @@ namespace RestfulAPIWithAspNet.Repository
         public void Add(Contact item)
         {
             _context.Contacts.Add(item);
+            _context.SaveChanges();
         }
 
         public Contact Find(string key)
@@ -38,7 +39,8 @@ namespace RestfulAPIWithAspNet.Repository
         {
             var itemToRemove = _context.Contacts.SingleOrDefault(r => r.MobilePhone == Id);
             if (itemToRemove != null)
-                _context.Contacts.Remove(itemToRemove);
+            _context.Contacts.Remove(itemToRemove);
+            _context.SaveChanges();
         }
 
         public void Update(Contact item)
@@ -56,6 +58,7 @@ namespace RestfulAPIWithAspNet.Repository
                 itemToUpdate.DateOfBirth = item.DateOfBirth;
                 itemToUpdate.AnniversaryDate = item.AnniversaryDate;
             }
+            _context.SaveChanges();
         }
     }
 }
