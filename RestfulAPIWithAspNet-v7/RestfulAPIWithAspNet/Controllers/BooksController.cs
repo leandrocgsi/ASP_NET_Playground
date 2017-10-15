@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Repository.Interfaces;
 
 namespace RestfulAPIWithAspNet.Controllers
 {

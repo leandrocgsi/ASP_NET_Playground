@@ -1,14 +1,14 @@
 ﻿using RestfulAPIWithAspNet.Models;
 using System.Collections.Generic;
 
-namespace RestfulAPIWithAspNet.Repository
+namespace RestfulAPIWithAspNet.Repository.Interfaces
 {
     public interface IContactsRepository
     {
-        void Add(Contact item);
+        Contact Add(Contact item);
+        Contact Update(Contact item);
+        void Remove(string Id);
         IEnumerable<Contact> GetAll();
         Contact Find(string key);
-        void Remove(string Id);
-        void Update(Contact item);
     }
 }

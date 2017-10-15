@@ -2,6 +2,7 @@
 using RestfulAPIWithAspNet.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using RestfulAPIWithAspNet.Repository.Interfaces;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -21,7 +22,7 @@ namespace RestfulAPIWithAspNet.Controllers
             return ContactsRepo.GetAll();
         }
 
-        [HttpGet("{id}", Name = "GetContacts")]
+        [HttpGet("{id}")]
         public IActionResult GetById(string id)
         {
             var item = ContactsRepo.Find(id);
@@ -40,10 +41,10 @@ namespace RestfulAPIWithAspNet.Controllers
                 return BadRequest();
             }
             ContactsRepo.Add(item);
-            return CreatedAtRoute("GetContacts", new { Controller = "Contact", id = item.MobilePhone }, item);
+            return new ObjectResult(item);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Update([FromBody] Contact item)
         {
             if (item == null)
@@ -56,7 +57,7 @@ namespace RestfulAPIWithAspNet.Controllers
                 return NotFound();
             }
             ContactsRepo.Update(item);
-            return new NoContentResult();
+            return new ObjectResult(item);
         }
 
         [HttpDelete("{id}")]

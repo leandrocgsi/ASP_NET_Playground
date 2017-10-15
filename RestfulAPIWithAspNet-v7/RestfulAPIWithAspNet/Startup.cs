@@ -11,6 +11,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
+using RestfulAPIWithAspNet.Repository.Interfaces;
 
 namespace RestfulAPIWithAspNet
 {

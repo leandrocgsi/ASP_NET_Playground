@@ -3,6 +3,7 @@ using System.Linq;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.Extensions.Logging;
 using System;
+using RestfulAPIWithAspNet.Repository.Interfaces;
 
 namespace RestfulAPIWithAspNet.Repository
 {
@@ -58,7 +59,7 @@ namespace RestfulAPIWithAspNet.Repository
         public Book Remove(string id)
         {
             var result = GetBook(id);
-            _context.Books.Remove(result);
+            if (result != null) _context.Books.Remove(result);
             _context.SaveChanges();
             return result;
         }

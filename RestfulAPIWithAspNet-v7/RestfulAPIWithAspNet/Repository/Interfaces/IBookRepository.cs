@@ -1,7 +1,7 @@
 ﻿using RestfulAPIWithAspNet.Models;
 using System.Collections.Generic;
 
-namespace RestfulAPIWithAspNet.Repository
+namespace RestfulAPIWithAspNet.Repository.Interfaces
 {
     public interface IBookRepository
     {
