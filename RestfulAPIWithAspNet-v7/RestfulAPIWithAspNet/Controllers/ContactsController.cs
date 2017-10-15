@@ -10,9 +10,9 @@ namespace RestfulAPIWithAspNet.Controllers
     {
         private IRepository<Contact> _ContactRepository;
 
-        public ContactsController()
+        public ContactsController(IRepository<Contact> repository)
         {
-            _ContactRepository = new GenericRepository<Contact>();
+            _ContactRepository = repository;
         }
 
         [HttpGet]

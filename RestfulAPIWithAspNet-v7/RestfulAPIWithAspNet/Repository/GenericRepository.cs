@@ -10,7 +10,7 @@ namespace RestfulAPIWithAspNet.Repository
     public class GenericRepository<T> : IRepository<T> where T : class
     {
         private readonly MySQLContext _context;
-        private DbSet<T> dataSet = null;
+        private DbSet<T> dataSet;
 
         public GenericRepository(MySQLContext context)
         {
