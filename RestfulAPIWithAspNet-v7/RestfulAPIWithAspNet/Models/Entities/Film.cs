@@ -1,4 +1,4 @@
-﻿namespace RestfulAPIWithAspNet.Models
+﻿namespace RestfulAPIWithAspNet.Models.Entities
 {
     public class Film
     {

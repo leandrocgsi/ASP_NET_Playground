@@ -141,7 +141,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
                     columns = columns + $" {realColumnName} as {propName},";
                 }
             }
-
+            if (columns.Length <= 0) return "*";
             return columns.Remove(columns.Length - 1, 1) + " ";
         }
 

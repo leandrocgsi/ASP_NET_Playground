@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestfulAPIWithAspNet.Data.DTO;
-using RestfulAPIWithAspNet.Models;
+using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Utils.Data;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestfulAPIWithAspNet.Models
+namespace RestfulAPIWithAspNet.Models.Entities
 {
     public class Book
     {

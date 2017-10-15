@@ -3,6 +3,7 @@ using RestfulAPIWithAspNet.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using RestfulAPIWithAspNet.Repository.Interfaces;
+using RestfulAPIWithAspNet.Models.Entities;
 
 namespace RestfulAPIWithAspNet.Controllers
 {

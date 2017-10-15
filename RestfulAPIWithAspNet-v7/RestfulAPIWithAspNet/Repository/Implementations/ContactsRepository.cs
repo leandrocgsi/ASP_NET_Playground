@@ -4,6 +4,7 @@ using RestfulAPIWithAspNet.Models;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Repository.Interfaces;
 using System;
+using RestfulAPIWithAspNet.Models.Entities;
 
 namespace RestfulAPIWithAspNet.Repository
 {
