@@ -1,8 +1,6 @@
-﻿using RestfulAPIWithAspNet.Models;
-using RestfulAPIWithAspNet.Repository;
+﻿using RestfulAPIWithAspNet.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using RestfulAPIWithAspNet.Repository.Interfaces;
 using RestfulAPIWithAspNet.Models.Entities;
 
 namespace RestfulAPIWithAspNet.Controllers
@@ -10,23 +8,23 @@ namespace RestfulAPIWithAspNet.Controllers
     [Route("api/[controller]")]
     public class ContactsController : Controller
     {
-        public IContactsRepository ContactsRepo { get; set; }
+        private IRepository<Contact> _ContactRepository;
 
-        public ContactsController(IContactsRepository _repo)
+        public ContactsController()
         {
-            ContactsRepo = _repo;
+            _ContactRepository = new GenericRepository<Contact>();
         }
 
         [HttpGet]
         public IEnumerable<Contact> GetAll()
         {
-            return ContactsRepo.GetAll();
+            return _ContactRepository.GetAll();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(string id)
         {
-            var item = ContactsRepo.Find(id);
+            var item = _ContactRepository.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -41,7 +39,7 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return BadRequest();
             }
-            ContactsRepo.Add(item);
+            _ContactRepository.Add(item);
             return new ObjectResult(item);
         }
 
@@ -52,19 +50,19 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return BadRequest();
             }
-            var contactObj = ContactsRepo.Find(item.Id);
+            var contactObj = _ContactRepository.Find(item.Id);
             if (contactObj == null)
             {
                 return NotFound();
             }
-            ContactsRepo.Update(item);
+            _ContactRepository.Update(item);
             return new ObjectResult(item);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            ContactsRepo.Remove(id);
+            _ContactRepository.Remove(id);
         }
     }
 }
