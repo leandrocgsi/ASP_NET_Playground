@@ -2,9 +2,8 @@
 
 namespace RestfulAPIWithAspNet.Models.Entities
 {
-    public class Contact
+    public class Contact : BaseEntity
     {
-        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool IsFamilyMember { get; set; }

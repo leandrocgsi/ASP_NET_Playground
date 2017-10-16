@@ -50,7 +50,7 @@ namespace RestfulAPIWithAspNet
 
             //using Dependency Injection
             services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<IContactsRepository, ContactsRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
