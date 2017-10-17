@@ -67,7 +67,7 @@ namespace RestfulAPIWithAspNet.Repository
 
         public T Find(object id)
         {
-            return dataSet.Find(id);
+            return dataSet.SingleOrDefault(m => m.Id.Equals(id));
         }
 
         public bool Exists(object Id)
