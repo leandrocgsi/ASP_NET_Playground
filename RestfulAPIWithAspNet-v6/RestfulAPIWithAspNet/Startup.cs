@@ -5,6 +5,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 
 using RestfulAPIWithAspNet.Repository;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace RestfulAPIWithAspNet
 {
@@ -44,6 +45,16 @@ namespace RestfulAPIWithAspNet
             });
 
             app.UseMvc();
+
+            RedirectToSwaggerPage(app);
+        }
+
+        private static void RedirectToSwaggerPage(IApplicationBuilder app)
+        {
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+
+            app.UseRewriter(option);
         }
     }
 }
