@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Program
     {

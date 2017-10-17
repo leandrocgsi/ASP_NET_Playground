@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 
-using restful_api_with_aspnet.Repository;
+using RestfulAPIWithAspNet.Repository;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Startup
     {
