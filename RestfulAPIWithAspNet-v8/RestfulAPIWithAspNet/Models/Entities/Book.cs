@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using RestfulAPIWithAspNet.Models.Entities.Base;
+using System;
 
 namespace RestfulAPIWithAspNet.Models.Entities
 {
-    public class Book :BaseEntity
+    public class Book : BaseEntity
     {
 
         public string Title { get; set; }

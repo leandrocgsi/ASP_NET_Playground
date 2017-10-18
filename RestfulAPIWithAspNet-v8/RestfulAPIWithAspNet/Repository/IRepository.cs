@@ -1,4 +1,4 @@
-﻿using RestfulAPIWithAspNet.Models.Entities;
+﻿using RestfulAPIWithAspNet.Models.Entities.Base;
 using System.Collections.Generic;
 
 namespace RestfulAPIWithAspNet.Repository

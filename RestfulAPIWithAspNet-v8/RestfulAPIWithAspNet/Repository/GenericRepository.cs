@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using RestfulAPIWithAspNet.Models.Entities;
 using System;
+using RestfulAPIWithAspNet.Models.Entities.Base;
 
 namespace RestfulAPIWithAspNet.Repository
 {

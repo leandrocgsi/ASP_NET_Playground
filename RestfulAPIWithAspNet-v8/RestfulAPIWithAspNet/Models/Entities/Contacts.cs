@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestfulAPIWithAspNet.Models.Entities.Base;
+using System;
 
 namespace RestfulAPIWithAspNet.Models.Entities
 {
