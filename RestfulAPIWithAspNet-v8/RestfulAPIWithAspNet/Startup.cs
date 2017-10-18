@@ -38,16 +38,11 @@ namespace RestfulAPIWithAspNet
 
             services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
-            // services.AddDbContext<MyContext>(options => options.Use (Configuration.GetConnectionString("DefaultConnection")));
-            // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            //services.Add(new ServiceDescriptor(typeof(MyContext), new MyContext(Configuration.GetConnectionString("DefaultConnection"))));
-
-            //using Dependency Injection
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
@@ -57,10 +52,7 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddDebug();
 
             //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
