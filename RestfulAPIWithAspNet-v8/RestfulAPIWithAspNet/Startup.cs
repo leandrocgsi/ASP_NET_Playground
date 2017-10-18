@@ -11,7 +11,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
-using RestfulAPIWithAspNet.Repository.Interfaces;
 
 namespace RestfulAPIWithAspNet
 {
@@ -49,7 +48,6 @@ namespace RestfulAPIWithAspNet
             //services.Add(new ServiceDescriptor(typeof(MyContext), new MyContext(Configuration.GetConnectionString("DefaultConnection"))));
 
             //using Dependency Injection
-            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
