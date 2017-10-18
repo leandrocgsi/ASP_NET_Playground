@@ -1,10 +1,8 @@
-﻿using RestfulAPIWithAspNet.Models;
-using RestfulAPIWithAspNet.Repository;
+﻿using RestfulAPIWithAspNet.Repository;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
-using RestfulAPIWithAspNet.Repository.Interfaces;
 using RestfulAPIWithAspNet.Models.Entities;
 
 namespace RestfulAPIWithAspNet.Controllers
@@ -16,12 +14,13 @@ namespace RestfulAPIWithAspNet.Controllers
     public class BooksController : ControllerBase
     {
 
-        private IBookRepository _bookRepository { get; set; }
         private readonly ILogger _logger;
 
-        public BooksController(IBookRepository bookRepository, ILogger<BooksController> logger)
+        private IRepository<Book> _bookRepository;
+
+        public BooksController(IRepository<Book> repository, ILogger<BooksController> logger)
         {
-            _bookRepository = bookRepository;
+            _bookRepository = repository;
             _logger = logger;
         }
 
@@ -59,7 +58,7 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult Update([FromBody]Book book)
         {
             var returnBook = new Book();
-            var result = _bookRepository.BookExists(book.Id);
+            var result = _bookRepository.Exists(book.Id);
             if (!result) return this.BadRequest();
             _bookRepository.Update(book);
             return new ObjectResult(result);
@@ -69,7 +68,7 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult Delete(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var result = _bookRepository.BookExists(id);
+            var result = _bookRepository.Exists(id);
             if (!result) return NotFound();
             _bookRepository.Remove(id);
             return new NoContentResult();
