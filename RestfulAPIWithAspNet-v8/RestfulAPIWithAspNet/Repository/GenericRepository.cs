@@ -85,5 +85,22 @@ namespace RestfulAPIWithAspNet.Repository
                 }
             }
         }
+
+        //SEE: http://www.learnentityframeworkcore.com/raw-sql
+        public List<T> FindWithPagedSearch(string query)
+        {
+            return dataSet.FromSql<T>(query).ToList();
+        }
+
+        public List<T> FindWithPagedSearch(string query, object[] parameters)
+        {
+            return dataSet.FromSql<T>(query, parameters).ToList();
+        }
+
+        public int GetCount(string query, object[] parameters)
+        {
+            //return dataSet.FromSql<int>(query, parameters).Sum();
+            return 0;
+        }
     }
 }

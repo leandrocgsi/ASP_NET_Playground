@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Utils.Data;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -17,6 +18,7 @@ namespace RestfulAPIWithAspNet.Controllers
         private readonly ILogger _logger;
 
         private IRepository<Book> _bookRepository;
+        QueryBuilder<Book> queryBuilder = new QueryBuilder<Book>();
 
         public BooksController(IRepository<Book> repository, ILogger<BooksController> logger)
         {
@@ -42,7 +44,25 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpPost("/PagedSearch")]
         public IActionResult Post([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
+            if (pagedSearchDTO == null)
+            {
+                //FAIL
+            }
 
+            //HACK: Convert request response
+            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTOWithColumnAlias("b", "book");
+            object[] parameters = { };//paramsGetterHelper.WithDTO(pagedSearchDTO).GetParameters();
+
+            List<Book> collaborators = _bookRepository.FindWithPagedSearch(query);
+
+            if (collaborators == null || collaborators.Count == 0)
+            {
+                //return BaseResult<PagedSearchDTO<Book>>.Fail(BookErrors.COLLABORATOR_NOT_FOUND);
+            }
+            pagedSearchDTO.List = collaborators;
+            pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("b", "book"), parameters);
+
+            //return BaseResult<PagedSearchDTO<Book>>.Success(_pagedSearchBuilder.Convert(pagedSearchDTO));
             return new ObjectResult(pagedSearchDTO);
         }
 
