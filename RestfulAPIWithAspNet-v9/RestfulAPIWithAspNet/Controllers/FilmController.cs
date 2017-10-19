@@ -36,12 +36,12 @@ namespace RestfulAPIWithAspNet.Controllers
             return this.Ok(film);
         }
 
-        //[HttpPost("/PagedSearch")]
-        //public IActionResult Post([FromBody] PagedSearchDTO<Film> pagedSearchDTO)
-        //{
+        [HttpPost("PagedSearch")]
+        public IActionResult PagedSearch([FromBody] PagedSearchDTO<Film> pagedSearchDTO)
+        {
 
-        //    return new ObjectResult(pagedSearchDTO);
-        //}
+            return new ObjectResult(pagedSearchDTO);
+        }
 
         [HttpPost]
         public IActionResult Create([FromBody]Film film)
