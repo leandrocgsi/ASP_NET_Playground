@@ -2,15 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Data.DTO;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
     [Route("api/[controller]")]
-    public class ContactsController : Controller
+    public class ContactController : Controller
     {
         private IRepository<Contact> _ContactRepository;
 
-        public ContactsController(IRepository<Contact> repository)
+        public ContactController(IRepository<Contact> repository)
         {
             _ContactRepository = repository;
         }
@@ -63,6 +64,13 @@ namespace RestfulAPIWithAspNet.Controllers
         public void Delete(string id)
         {
             _ContactRepository.Remove(id);
+        }
+
+        [HttpPost("PagedSearch")]
+        public IActionResult PagedSearch([FromBody] PagedSearchDTO<Contact> pagedSearchDTO)
+        {
+
+            return new ObjectResult(pagedSearchDTO);
         }
     }
 }

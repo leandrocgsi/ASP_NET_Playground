@@ -12,7 +12,7 @@ namespace RestfulAPIWithAspNet.Controllers
     //SEE: https://github.com/bragil/diario-bordo and https://bragil.wordpress.com/2012/12/13/dao-generico-entity-framework-5-code-first/
 
     [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    public class BookController : ControllerBase
     {
 
         private readonly ILogger _logger;
@@ -20,7 +20,7 @@ namespace RestfulAPIWithAspNet.Controllers
         private IRepository<Book> _bookRepository;
         QueryBuilder<Book> queryBuilder = new QueryBuilder<Book>();
 
-        public BooksController(IRepository<Book> repository, ILogger<BooksController> logger)
+        public BookController(IRepository<Book> repository, ILogger<BookController> logger)
         {
             _bookRepository = repository;
             _logger = logger;
@@ -41,8 +41,8 @@ namespace RestfulAPIWithAspNet.Controllers
             return this.Ok(book);
         }
 
-        [HttpPost("/PagedSearch")]
-        public IActionResult Post([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
+        [HttpPost("PagedSearch")]
+        public IActionResult PagedSearch([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
             if (pagedSearchDTO == null)
             {
