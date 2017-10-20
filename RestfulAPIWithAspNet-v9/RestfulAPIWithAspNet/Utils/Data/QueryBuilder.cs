@@ -75,7 +75,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         private static bool KeyAndValueIsNotNull(KeyValuePair<string, object> entry)
         {
-            return entry.Key != null && entry.Value != null && !String.IsNullOrEmpty(entry.Key.ToString()) && !String.IsNullOrEmpty(entry.Value.ToString());
+            return !string.IsNullOrWhiteSpace($"{entry.Key}") && !string.IsNullOrWhiteSpace($"{entry.Value}");
         }
 
         public String GetQueryFromDTO(String alias, String entityName)
