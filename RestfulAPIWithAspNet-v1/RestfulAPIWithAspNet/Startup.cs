@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Startup
     {

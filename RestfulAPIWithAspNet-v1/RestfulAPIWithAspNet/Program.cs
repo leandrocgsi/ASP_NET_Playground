@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Program
     {
