@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using restful_api_with_aspnet.Models;
+using RestfulAPIWithAspNet.Models;
 
-namespace restful_api_with_aspnet
+namespace RestfulAPIWithAspNet
 {
     public class Startup
     {
