@@ -2,9 +2,9 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-using restful_api_with_aspnet.Models;
+using RestfulAPIWithAspNet.Models;
 
-namespace restful_api_with_aspnet.Controllers
+namespace RestfulAPIWithAspNet.Controllers
 {
     [Route("api/[controller]")]
     public class TodoController : Controller

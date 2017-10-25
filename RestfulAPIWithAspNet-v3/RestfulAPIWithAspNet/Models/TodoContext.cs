@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace restful_api_with_aspnet.Models
+namespace RestfulAPIWithAspNet.Models
 {
     public class TodoContext : DbContext
     {
