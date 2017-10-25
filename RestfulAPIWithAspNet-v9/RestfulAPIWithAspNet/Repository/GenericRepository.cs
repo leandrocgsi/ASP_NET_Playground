@@ -97,10 +97,9 @@ namespace RestfulAPIWithAspNet.Repository
             return dataSet.FromSql<T>(query, parameters).ToList();
         }
 
-        public int GetCount(string query, object[] parameters)
+        public int GetCount(string query)
         {
-            //return dataSet.FromSql<int>(query, parameters).Sum();
-            return 0;
+            return dataSet.FromSql(query).Count();
         }
     }
 }

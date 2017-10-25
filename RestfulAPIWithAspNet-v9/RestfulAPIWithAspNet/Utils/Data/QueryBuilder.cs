@@ -1,4 +1,5 @@
 ﻿using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -44,28 +45,29 @@ namespace RestfulAPIWithAspNet.Utils.Data
                 {
                     String key = entry.Key;
                     Object value = entry.Value;
+                    String sanitizedValue = DatabaseHelper.SanitizeSqlParameter($"{entry.Value}");
 
                     String column = GetRealColumnName(key);
 
                     if (IsDateTimeType(value.ToString()))
                     {
-                        query = query + "CAST(REPLACE(" + alias + "." + column + ", '-', '') AS DATE) = CAST(REPLACE('" + value + "', '-', '') AS DATE) and ";
+                        query = query + "CAST(REPLACE(" + alias + "." + column + ", '-', '') AS DATE) = CAST(REPLACE('" + $"{value}" + "', '-', '') AS DATE) and ";
                     }
                     else if (value.GetType() == typeof(int))
                     {
-                        query = query + alias + "." + column + " = " + value + " and ";
+                        query = query + alias + "." + column + " = " + sanitizedValue + " and ";
                     }
                     else if (value.GetType() == typeof(double))
                     {
-                        query = query + alias + "." + column + " = '" + value + "' and ";
+                        query = query + alias + "." + column + " = '" + sanitizedValue + "' and ";
                     }
                     else if (value.GetType() == typeof(string))
                     {
-                        query = query + alias + "." + column + " like '%" + value + "%'" + " and ";
+                        query = query + alias + "." + column + " like '%" + sanitizedValue + "%'" + " and ";
                     }
                     else
                     {
-                        query = query + alias + "." + column + " = " + value + " and ";
+                        query = query + alias + "." + column + " = " + sanitizedValue + " and ";
                     }
                 }
             }

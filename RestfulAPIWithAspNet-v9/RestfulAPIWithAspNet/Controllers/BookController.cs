@@ -51,8 +51,7 @@ namespace RestfulAPIWithAspNet.Controllers
 
             //HACK: Convert request response
             string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTOWithColumnAlias("b", "book");
-            object[] parameters = { };//paramsGetterHelper.WithDTO(pagedSearchDTO).GetParameters();
-
+            
             List<Book> collaborators = _bookRepository.FindWithPagedSearch(query);
 
             if (collaborators == null || collaborators.Count == 0)

@@ -15,6 +15,6 @@ namespace RestfulAPIWithAspNet.Repository
 
         List<T> FindWithPagedSearch(string query);
         List<T> FindWithPagedSearch(string query, object[] parameters);
-        int GetCount(string query, object[] parameters);
+        int GetCount(string query);
     }
 }
