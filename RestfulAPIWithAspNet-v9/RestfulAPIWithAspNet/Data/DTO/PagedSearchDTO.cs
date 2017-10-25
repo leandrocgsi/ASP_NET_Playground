@@ -38,12 +38,12 @@ namespace RestfulAPIWithAspNet.Data.DTO
 
         public int GetCurrentPage()
         {
-            return CurrentPage;
+            return CurrentPage == 0 ? 2 : CurrentPage;
         }
 
         public int GetPageSize()
         {
-            return PageSize;
+            return PageSize == 0 ? 10 : PageSize;
         }
     }
 }

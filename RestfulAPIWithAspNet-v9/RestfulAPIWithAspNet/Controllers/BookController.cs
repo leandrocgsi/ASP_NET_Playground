@@ -50,7 +50,7 @@ namespace RestfulAPIWithAspNet.Controllers
             }
 
             //HACK: Convert request response
-            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTOWithColumnAlias("b", "book");
+            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("b", "books");
             
             List<Book> collaborators = _bookRepository.FindWithPagedSearch(query);
 
@@ -59,7 +59,7 @@ namespace RestfulAPIWithAspNet.Controllers
                 //return BaseResult<PagedSearchDTO<Book>>.Fail(BookErrors.COLLABORATOR_NOT_FOUND);
             }
             pagedSearchDTO.List = collaborators;
-            pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("b", "book"), parameters);
+            pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("b", "books"));
 
             //return BaseResult<PagedSearchDTO<Book>>.Success(_pagedSearchBuilder.Convert(pagedSearchDTO));
             return new ObjectResult(pagedSearchDTO);

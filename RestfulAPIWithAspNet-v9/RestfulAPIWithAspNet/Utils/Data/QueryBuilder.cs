@@ -38,6 +38,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetWhereAndParameters(String alias)
         {
+            if (pagedSearchDTO.Filters == null) return "";
             String query = " where ";
             foreach (var entry in pagedSearchDTO.Filters)
             {
@@ -82,7 +83,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetQueryFromDTO(String alias, String entityName)
         {
-            return GetBaseSelect(alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) + GetOffSet();
+            return GetBaseSelect(alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) /*+ GetOffSet()*/;
         }
 
         public String GetQueryFromDTOWithColumnAlias(String columnsAlias, String alias, String entityName)
@@ -114,6 +115,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetRealColumnName(string attributeName)
         {
+            if (attributeName == null) return "Id";
             var myType = typeof(T);
 
             var myProperty = myType.GetProperty(attributeName);
