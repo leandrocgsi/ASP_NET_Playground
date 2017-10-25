@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Utils.Data;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -13,25 +14,26 @@ namespace RestfulAPIWithAspNet.Controllers
 
         private readonly ILogger _logger;
 
-        private IRepository<Film> _filmRepository;
+        private IRepository<Film> _FilmRepository;
+        QueryBuilder<Film> queryBuilder = new QueryBuilder<Film>();
 
         public FilmController(IRepository<Film> repository, ILogger<FilmController> logger)
         {
-            _filmRepository = repository;
+            _FilmRepository = repository;
             _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<Film> GetAllAsync()
         {
-            return _filmRepository.GetAll();
+            return _FilmRepository.GetAll();
         }
 
         [HttpGet("{id}", Name = "GetFilm")]
         public IActionResult GetByIdAsync(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var film = _filmRepository.Find(id);
+            var film = _FilmRepository.Find(id);
             if (film == null) return this.NotFound();
             return this.Ok(film);
         }
@@ -39,6 +41,10 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Film> pagedSearchDTO)
         {
+            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("f", "films");
+
+            pagedSearchDTO.List = _FilmRepository.FindWithPagedSearch(query);
+            pagedSearchDTO.TotalResults = _FilmRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("f", "films"));
 
             return new ObjectResult(pagedSearchDTO);
         }
@@ -47,7 +53,7 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult Create([FromBody]Film film)
         {
             if (film == null) return BadRequest();
-            var returnFilm = _filmRepository.Add(film);
+            var returnFilm = _FilmRepository.Add(film);
             return new ObjectResult(returnFilm);
         }
 
@@ -55,9 +61,9 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult Update([FromBody]Film film)
         {
             var returnFilm = new Film();
-            var result = _filmRepository.Exists(film.Id);
+            var result = _FilmRepository.Exists(film.Id);
             if (!result) return this.BadRequest();
-            _filmRepository.Update(film);
+            _FilmRepository.Update(film);
             return new ObjectResult(result);
         }
 
@@ -65,9 +71,9 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult Delete(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var result = _filmRepository.Exists(id);
+            var result = _FilmRepository.Exists(id);
             if (!result) return NotFound();
-            _filmRepository.Remove(id);
+            _FilmRepository.Remove(id);
             return new NoContentResult();
         }
     }
