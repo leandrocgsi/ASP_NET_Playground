@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Utils.Data;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -10,6 +11,7 @@ namespace RestfulAPIWithAspNet.Controllers
     public class ContactController : Controller
     {
         private IRepository<Contact> _ContactRepository;
+        QueryBuilder<Contact> queryBuilder = new QueryBuilder<Contact>();
 
         public ContactController(IRepository<Contact> repository)
         {
@@ -69,6 +71,10 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Contact> pagedSearchDTO)
         {
+            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("c", "contacts");
+
+            pagedSearchDTO.List = _ContactRepository.FindWithPagedSearch(query);
+            pagedSearchDTO.TotalResults = _ContactRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("c", "contacts"));
 
             return new ObjectResult(pagedSearchDTO);
         }

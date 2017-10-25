@@ -44,24 +44,11 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
-            if (pagedSearchDTO == null)
-            {
-                //FAIL
-            }
-
-            //HACK: Convert request response
             string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("b", "books");
-            
-            List<Book> collaborators = _bookRepository.FindWithPagedSearch(query);
-
-            if (collaborators == null || collaborators.Count == 0)
-            {
-                //return BaseResult<PagedSearchDTO<Book>>.Fail(BookErrors.COLLABORATOR_NOT_FOUND);
-            }
-            pagedSearchDTO.List = collaborators;
+          
+            pagedSearchDTO.List = _bookRepository.FindWithPagedSearch(query);
             pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("b", "books"));
 
-            //return BaseResult<PagedSearchDTO<Book>>.Success(_pagedSearchBuilder.Convert(pagedSearchDTO));
             return new ObjectResult(pagedSearchDTO);
         }
 
