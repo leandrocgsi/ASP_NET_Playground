@@ -4,7 +4,7 @@ namespace RestfulAPIWithAspNet.Data.VO
 {
     public class PersonVO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public String Name { get; set; }
         public String Email { get; set; }
         public String Phone { get; set; }

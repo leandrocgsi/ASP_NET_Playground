@@ -1,6 +1,6 @@
 ﻿namespace UpBrasil.OTP.API.Utils
 {
-    public interface ResultAdapter<O, D>
+    public interface IParser<O, D>
     {
         D Parse(O origin);
     }
