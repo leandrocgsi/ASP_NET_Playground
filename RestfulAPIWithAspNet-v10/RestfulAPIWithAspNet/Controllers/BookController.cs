@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Utils.Data;
+using RestfulAPIWithAspNet.Conveters;
+using RestfulAPIWithAspNet.Data.VO;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -16,6 +18,7 @@ namespace RestfulAPIWithAspNet.Controllers
     {
 
         private readonly ILogger _logger;
+        private readonly BookConverter _converter;
 
         private IRepository<Book> _bookRepository;
         QueryBuilder<Book> queryBuilder = new QueryBuilder<Book>();
@@ -23,13 +26,15 @@ namespace RestfulAPIWithAspNet.Controllers
         public BookController(IRepository<Book> repository, ILogger<BookController> logger)
         {
             _bookRepository = repository;
+            _converter = new BookConverter();
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<Book> GetAllAsync()
+        public IEnumerable<BookVO> GetAllAsync()
         {
-            return _bookRepository.GetAll();
+            var books = _bookRepository.GetAll();
+            return _converter.ParseEntityListToVOList(books);
         }
 
         [HttpGet("{id}", Name = "GetBook")]

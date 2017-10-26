@@ -3,6 +3,7 @@ using RestfulAPIWithAspNet.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using UpBrasil.OTP.API.Utils;
+using System;
 
 namespace RestfulAPIWithAspNet.Conveters
 {
@@ -34,13 +35,19 @@ namespace RestfulAPIWithAspNet.Conveters
             };
         }
 
-        internal List<Book> ConvertVOListToEntityList(List<BookVO> Books)
+        internal List<Book> ParseVOListToEntityList(List<BookVO> Books)
         {
             if (Books == null) return new List<Book>();
             return Books.Select(item => Parse(item)).ToList();
         }
 
-        internal List<BookVO> ConvertEntityListToVOList(List<Book> Books)
+        internal List<BookVO> ParseEntityListToVOList(List<Book> Books)
+        {
+            if (Books == null) return new List<BookVO>();
+            return Books.Select(item => Parse(item)).ToList();
+        }
+
+        internal IEnumerable<BookVO> ParseEntityListToVOList(IEnumerable<Book> Books)
         {
             if (Books == null) return new List<BookVO>();
             return Books.Select(item => Parse(item)).ToList();
