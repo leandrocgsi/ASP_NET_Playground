@@ -47,7 +47,7 @@ namespace RestfulAPIWithAspNet.Controllers
             string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("f", "films");
 
             pagedSearchDTO.List = _FilmRepository.FindWithPagedSearch(query);
-            pagedSearchDTO.TotalResults = _FilmRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("f", "films"));
+            pagedSearchDTO.TotalResults = _FilmRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetSelectCount("f", "films"));
 
             return new ObjectResult(pagedSearchDTO);
         }

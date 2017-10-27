@@ -42,7 +42,7 @@ namespace RestfulAPIWithAspNet.Test
         public void GetBaseSelectCount()
         {
             String baseSelect = "select count(*) from Person p ";
-            Assert.AreEqual(baseSelect, queryBuilder.WithDTO(dto).GetBaseSelectCount("p", "Person"));
+            Assert.AreEqual(baseSelect, queryBuilder.WithDTO(dto).GetSelectCount("p", "Person"));
         }
 
         [TestMethod]
@@ -79,7 +79,9 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a geração da query final")]
         public void GetQueryFromDTOTest()
         {
-            String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc offset 0 rows fetch next 10 rows only";
+            //HACK: Fix offset to MySQL
+            //String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc offset 0 rows fetch next 10 rows only";
+            String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc";
             Assert.AreEqual(selectWithParameters, queryBuilder.WithDTO(dto).GetQueryFromDTO("p", "Person"));
         }
 

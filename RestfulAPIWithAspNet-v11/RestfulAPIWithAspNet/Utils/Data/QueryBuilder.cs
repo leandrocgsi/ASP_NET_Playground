@@ -108,7 +108,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
             return $"select * from {entityName} {alias} ";
         }
 
-        public String GetBaseSelectCount(String alias, String entityName)
+        public String GetSelectCount(String alias, String entityName)
         {
             return $"select count(*) from {entityName} {alias} ";
         }
