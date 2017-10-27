@@ -17,7 +17,12 @@ namespace RestfulAPIWithAspNet.Conveters
                 FirstName = origin.FirstName,
                 LastName = origin.LastName,
                 AnniversaryDate = origin.AnniversaryDate,
-                DateOfBirth = origin.DateOfBirth
+                DateOfBirth = origin.DateOfBirth,
+                Email = origin.Email,
+                MobilePhone = origin.MobilePhone,
+                Company = origin.Company,
+                JobTitle = origin.JobTitle,
+                IsFamilyMember = origin.IsFamilyMember
             };
         }
 
@@ -27,6 +32,15 @@ namespace RestfulAPIWithAspNet.Conveters
             return new ContactVO
             {
                 Id = origin.Id,
+                FirstName = origin.FirstName,
+                LastName = origin.LastName,
+                AnniversaryDate = origin.AnniversaryDate,
+                DateOfBirth = origin.DateOfBirth,
+                Email = origin.Email,
+                MobilePhone = origin.MobilePhone,
+                Company = origin.Company,
+                JobTitle = origin.JobTitle,
+                IsFamilyMember = origin.IsFamilyMember
             };
         }
 
