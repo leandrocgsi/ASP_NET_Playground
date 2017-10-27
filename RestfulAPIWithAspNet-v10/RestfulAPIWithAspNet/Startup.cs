@@ -11,6 +11,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
+using UpBrasil.OTP.API.Utils;
+using RestfulAPIWithAspNet.Conveters;
+using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Data.VO;
 
 namespace RestfulAPIWithAspNet
 {
@@ -44,6 +48,7 @@ namespace RestfulAPIWithAspNet
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            //services.AddScoped(serviceType: typeof(IParser<Book, BookVO>), implementationInstance: BookConverter);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)

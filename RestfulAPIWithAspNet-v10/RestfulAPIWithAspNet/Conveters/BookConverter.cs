@@ -3,7 +3,6 @@ using RestfulAPIWithAspNet.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using UpBrasil.OTP.API.Utils;
-using System;
 
 namespace RestfulAPIWithAspNet.Conveters
 {

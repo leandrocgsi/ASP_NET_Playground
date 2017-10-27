@@ -43,7 +43,7 @@ namespace RestfulAPIWithAspNet.Controllers
             if (id == null || "".Equals(id)) return BadRequest();
             var book = _bookRepository.Find(id);
             if (book == null) return this.NotFound();
-            return this.Ok(book);
+            return this.Ok(_converter.Parse(book));
         }
 
         [HttpPost("PagedSearch")]
@@ -62,7 +62,7 @@ namespace RestfulAPIWithAspNet.Controllers
         {
             if (book == null) return BadRequest();
             var returnBook = _bookRepository.Add(book);
-            return new ObjectResult(returnBook);
+            return new ObjectResult(_converter.Parse(returnBook));
         }
 
         [HttpPut]
@@ -71,8 +71,8 @@ namespace RestfulAPIWithAspNet.Controllers
             var returnBook = new Book();
             var result = _bookRepository.Exists(book.Id);
             if (!result) return this.BadRequest();
-            _bookRepository.Update(book);
-            return new ObjectResult(result);
+            var updated = _bookRepository.Update(book);
+            return new ObjectResult(_converter.Parse(updated));
         }
 
         [HttpDelete("{id}")]
