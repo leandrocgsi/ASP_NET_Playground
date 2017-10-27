@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Utils.Data;
+using RestfulAPIWithAspNet.Conveters;
+using RestfulAPIWithAspNet.Data.VO;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -16,6 +18,7 @@ namespace RestfulAPIWithAspNet.Controllers
 
         private IRepository<Film> _FilmRepository;
         QueryBuilder<Film> queryBuilder = new QueryBuilder<Film>();
+        private readonly FilmConverter _converter;
 
         public FilmController(IRepository<Film> repository, ILogger<FilmController> logger)
         {
@@ -24,9 +27,9 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Film> GetAllAsync()
+        public IEnumerable<FilmVO> GetAllAsync()
         {
-            return _FilmRepository.GetAll();
+            return _converter.ParseEntityListToVOList(_FilmRepository.GetAll());
         }
 
         [HttpGet("{id}", Name = "GetFilm")]
@@ -35,7 +38,7 @@ namespace RestfulAPIWithAspNet.Controllers
             if (id == null || "".Equals(id)) return BadRequest();
             var film = _FilmRepository.Find(id);
             if (film == null) return this.NotFound();
-            return this.Ok(film);
+            return this.Ok(_converter.Parse(film));
         }
 
         [HttpPost("PagedSearch")]
@@ -54,7 +57,7 @@ namespace RestfulAPIWithAspNet.Controllers
         {
             if (film == null) return BadRequest();
             var returnFilm = _FilmRepository.Add(film);
-            return new ObjectResult(returnFilm);
+            return new ObjectResult(_converter.Parse(returnFilm));
         }
 
         [HttpPut]
@@ -63,8 +66,8 @@ namespace RestfulAPIWithAspNet.Controllers
             var returnFilm = new Film();
             var result = _FilmRepository.Exists(film.Id);
             if (!result) return this.BadRequest();
-            _FilmRepository.Update(film);
-            return new ObjectResult(result);
+            film = _FilmRepository.Update(film);
+            return new ObjectResult(_converter.Parse(film));
         }
 
         [HttpDelete("{id}")]
