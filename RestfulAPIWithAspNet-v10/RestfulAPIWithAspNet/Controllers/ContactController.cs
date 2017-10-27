@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Utils.Data;
+using RestfulAPIWithAspNet.Conveters;
+using RestfulAPIWithAspNet.Data.VO;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -12,16 +14,19 @@ namespace RestfulAPIWithAspNet.Controllers
     {
         private IRepository<Contact> _ContactRepository;
         QueryBuilder<Contact> queryBuilder = new QueryBuilder<Contact>();
+        private readonly ContactConverter _converter;
 
         public ContactController(IRepository<Contact> repository)
         {
             _ContactRepository = repository;
+            _converter = new ContactConverter();
         }
 
         [HttpGet]
-        public IEnumerable<Contact> GetAll()
+        public IEnumerable<ContactVO> GetAll()
         {
-            return _ContactRepository.GetAll();
+            var contacts = _ContactRepository.GetAll();
+            return _converter.ParseEntityListToVOList(contacts);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +37,7 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+            return new ObjectResult(_converter.Parse(item));
         }
 
         [HttpPost]
@@ -43,7 +48,7 @@ namespace RestfulAPIWithAspNet.Controllers
                 return BadRequest();
             }
             _ContactRepository.Add(item);
-            return new ObjectResult(item);
+            return new ObjectResult(_converter.Parse(item));
         }
 
         [HttpPut]
@@ -58,8 +63,8 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return NotFound();
             }
-            _ContactRepository.Update(item);
-            return new ObjectResult(item);
+            item = _ContactRepository.Update(item);
+            return new ObjectResult(_converter.Parse(item));
         }
 
         [HttpDelete("{id}")]

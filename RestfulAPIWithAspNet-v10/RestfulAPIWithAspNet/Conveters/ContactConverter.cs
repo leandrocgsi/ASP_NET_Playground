@@ -56,10 +56,10 @@ namespace RestfulAPIWithAspNet.Conveters
             return Contacts.Select(item => Parse(item)).ToList();
         }
 
-        internal IEnumerable<ContactVO> ParseEntityListToVOList(IEnumerable<Contact> Contacts)
+        internal IEnumerable<ContactVO> ParseEntityListToVOList(IEnumerable<Contact> contacts)
         {
-            if (Contacts == null) return new List<ContactVO>();
-            return Contacts.Select(item => Parse(item)).ToList();
+            if (contacts == null) return new List<ContactVO>();
+            return contacts.Select(item => Parse(item)).ToList();
         }
     }
 }
