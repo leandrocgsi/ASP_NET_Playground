@@ -27,7 +27,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetOffSet()
         {
-            return $" offset {GetStart()} rows fetch next {pagedSearchDTO.GetPageSize()} rows only";
+            return $" limit {pagedSearchDTO.GetPageSize()} "; //offset {pagedSearchDTO.GetPageSize()} ";
         }
 
 
@@ -83,7 +83,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetQueryFromDTO(String alias, String entityName)
         {
-            return GetBaseSelect(alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) /*+ GetOffSet()*/;
+            return GetBaseSelect(alias, entityName) + GetWhereAndParameters(alias) + GetOrderBy(alias) + GetOffSet();
         }
 
         public String GetQueryFromDTOWithColumnAlias(String columnsAlias, String alias, String entityName)
