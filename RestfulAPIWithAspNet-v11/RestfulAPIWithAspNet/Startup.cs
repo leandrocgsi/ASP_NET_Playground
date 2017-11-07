@@ -15,6 +15,7 @@ using UpBrasil.OTP.API.Utils;
 using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
+using RestfulAPIWithAspNet.Business;
 
 namespace RestfulAPIWithAspNet
 {
@@ -47,8 +48,9 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
+            //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-            //services.AddScoped(serviceType: typeof(IParser<Book, BookVO>), implementationInstance: BookConverter);
+            services.AddScoped<BookBusiness>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
