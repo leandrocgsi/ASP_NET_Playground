@@ -48,9 +48,10 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
+            services.AddScoped<BookBusiness>();
+
             //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<BookBusiness>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
