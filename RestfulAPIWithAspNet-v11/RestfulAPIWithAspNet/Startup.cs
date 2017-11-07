@@ -49,6 +49,8 @@ namespace RestfulAPIWithAspNet
             });
 
             services.AddScoped<BookBusiness>();
+            services.AddScoped<ContactBusiness>();
+            services.AddScoped<FilmBusiness>();
 
             //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
