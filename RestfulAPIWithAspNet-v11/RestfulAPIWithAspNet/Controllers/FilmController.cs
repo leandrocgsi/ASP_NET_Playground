@@ -63,7 +63,7 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return BadRequest();
             }
-            _business.Create(item);
+            _business.Update(item);
             return new ObjectResult(item);
         }
 
