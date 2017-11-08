@@ -3,15 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
-using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
     //HACK: See https://www.packtpub.com/application-development/restful-web-services-aspnet-core-video
-    //SEE: https://github.com/bragil/diario-bordo and https://bragil.wordpress.com/2012/12/13/dao-generico-entity-framework-5-code-first/
-
+    
     [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
