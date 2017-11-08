@@ -7,6 +7,7 @@ using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Utils.Data;
 using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Data.VO;
+using RestfulAPIWithAspNet.Business;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -16,67 +17,63 @@ namespace RestfulAPIWithAspNet.Controllers
 
         private readonly ILogger _logger;
 
-        private IRepository<Film> _FilmRepository;
-        QueryBuilder<Film> queryBuilder = new QueryBuilder<Film>();
-        private readonly FilmConverter _converter;
+        private FilmBusiness _business;
 
-        public FilmController(IRepository<Film> repository, ILogger<FilmController> logger)
+        public FilmController(FilmBusiness business, ILogger<FilmController> logger)
         {
-            _FilmRepository = repository;
+            _business = business;
             _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<FilmVO> GetAllAsync()
         {
-            return _converter.ParseEntityListToVOList(_FilmRepository.GetAll());
+            return _business.FindAll();
         }
 
-        [HttpGet("{id}", Name = "GetFilm")]
+        [HttpGet("{id}")]
         public IActionResult GetByIdAsync(string id)
         {
-            if (id == null || "".Equals(id)) return BadRequest();
-            var film = _FilmRepository.Find(id);
-            if (film == null) return this.NotFound();
-            return this.Ok(_converter.Parse(film));
+            var item = _business.GetByIdAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
         }
 
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Film> pagedSearchDTO)
         {
-            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("f", "films");
-
-            pagedSearchDTO.List = _FilmRepository.FindWithPagedSearch(query);
-            pagedSearchDTO.TotalResults = _FilmRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetSelectCount("f", "films"));
-
-            return new ObjectResult(pagedSearchDTO);
+            return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]Film film)
+        public IActionResult Create([FromBody]Film item)
         {
-            if (film == null) return BadRequest();
-            var returnFilm = _FilmRepository.Add(film);
-            return new ObjectResult(_converter.Parse(returnFilm));
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            _business.Create(item);
+            return new ObjectResult(item);
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Film film)
+        public IActionResult Update([FromBody]Film item)
         {
-            var returnFilm = new Film();
-            var result = _FilmRepository.Exists(film.Id);
-            if (!result) return this.BadRequest();
-            film = _FilmRepository.Update(film);
-            return new ObjectResult(_converter.Parse(film));
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            _business.Create(item);
+            return new ObjectResult(item);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            if (id == null || "".Equals(id)) return BadRequest();
-            var result = _FilmRepository.Exists(id);
-            if (!result) return NotFound();
-            _FilmRepository.Remove(id);
+            _business.Delete(id);
             return new NoContentResult();
         }
     }
