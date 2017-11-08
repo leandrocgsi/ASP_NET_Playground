@@ -1,10 +1,7 @@
-﻿using RestfulAPIWithAspNet.Repository;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.DTO;
-using RestfulAPIWithAspNet.Utils.Data;
-using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Data.VO;
 using Microsoft.Extensions.Logging;
 using RestfulAPIWithAspNet.Business;
