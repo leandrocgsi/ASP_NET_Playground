@@ -32,7 +32,7 @@ namespace RestfulAPIWithAspNet.Controllers
             return _business.FindAll();
         }
 
-        [HttpGet("{id}", Name = "GetBook")]
+        [HttpGet("{id}")]
         public IActionResult GetByIdAsync(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
