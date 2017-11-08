@@ -6,38 +6,39 @@ using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Utils.Data;
 using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Data.VO;
+using Microsoft.Extensions.Logging;
+using RestfulAPIWithAspNet.Business;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
     [Route("api/[controller]")]
     public class ContactController : Controller
     {
-        private IRepository<Contact> _ContactRepository;
-        QueryBuilder<Contact> queryBuilder = new QueryBuilder<Contact>();
-        private readonly ContactConverter _converter;
+        private readonly ILogger _logger;
 
-        public ContactController(IRepository<Contact> repository)
+        private ContactBusiness _business;
+
+        public ContactController(ContactBusiness business, ILogger<ContactController> logger)
         {
-            _ContactRepository = repository;
-            _converter = new ContactConverter();
+            _business = business;
+            _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<ContactVO> GetAll()
         {
-            var contacts = _ContactRepository.GetAll();
-            return _converter.ParseEntityListToVOList(contacts);
+            return _business.FindAll();
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(string id)
         {
-            var item = _ContactRepository.Find(id);
+            var item = _business.GetByIdAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(_converter.Parse(item));
+            return new ObjectResult(item);
         }
 
         [HttpPost]
@@ -47,8 +48,8 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return BadRequest();
             }
-            _ContactRepository.Add(item);
-            return new ObjectResult(_converter.Parse(item));
+            _business.Create(item);
+            return new ObjectResult(item);
         }
 
         [HttpPut]
@@ -58,30 +59,20 @@ namespace RestfulAPIWithAspNet.Controllers
             {
                 return BadRequest();
             }
-            var contactObj = _ContactRepository.Find(item.Id);
-            if (contactObj == null)
-            {
-                return NotFound();
-            }
-            item = _ContactRepository.Update(item);
-            return new ObjectResult(_converter.Parse(item));
+            _business.Update(item);
+            return new ObjectResult(item);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            _ContactRepository.Remove(id);
+            _business.Delete(id);
         }
 
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Contact> pagedSearchDTO)
         {
-            string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("c", "contacts");
-
-            pagedSearchDTO.List = _ContactRepository.FindWithPagedSearch(query);
-            pagedSearchDTO.TotalResults = _ContactRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetSelectCount("c", "contacts"));
-
-            return new ObjectResult(pagedSearchDTO);
+            return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
     }
 }
