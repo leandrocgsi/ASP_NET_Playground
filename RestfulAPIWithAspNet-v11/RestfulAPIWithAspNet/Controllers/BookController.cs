@@ -18,25 +18,25 @@ namespace RestfulAPIWithAspNet.Controllers
 
         private readonly ILogger _logger;
 
-        private BookBusiness _bookBusiness;
+        private BookBusiness _business;
 
-        public BookController(BookBusiness bookBusiness, ILogger<BookController> logger)
+        public BookController(BookBusiness business, ILogger<BookController> logger)
         {
-            _bookBusiness = bookBusiness;
+            _business = business;
             _logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<BookVO> GetAllAsync()
         {
-            return _bookBusiness.FindAll();
+            return _business.FindAll();
         }
 
         [HttpGet("{id}", Name = "GetBook")]
         public IActionResult GetByIdAsync(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var book = _bookBusiness.GetByIdAsync(id);
+            var book = _business.GetByIdAsync(id);
             if (book == null) return this.NotFound();
             return this.Ok(book);
         }
@@ -44,29 +44,29 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpPost("PagedSearch")]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
-            return new ObjectResult(_bookBusiness.PagedSearch(pagedSearchDTO));
+            return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
 
         [HttpPost]
         public IActionResult Create([FromBody]Book book)
         {
             if (book == null) return BadRequest();
-            return new ObjectResult(_bookBusiness.Create(book));
+            return new ObjectResult(_business.Create(book));
         }
 
         [HttpPut]
         public IActionResult Update([FromBody]Book book)
         {
-            var updated = _bookBusiness.Update(book);
+            var updated = _business.Update(book);
             if (updated.Id == null) return this.BadRequest();
-            return new ObjectResult(_bookBusiness.Update(book));
+            return new ObjectResult(_business.Update(book));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            if (!_bookBusiness.Delete(id)) return NotFound();
+            if (!_business.Delete(id)) return NotFound();
             return new NoContentResult();
         }
     }
