@@ -6,8 +6,6 @@ using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Net;
-using System;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
