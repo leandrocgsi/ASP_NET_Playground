@@ -43,9 +43,9 @@ namespace RestfulAPIWithAspNet.Controllers
         public IActionResult GetById(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var book = _business.GetByIdAsync(id);
-            if (book == null) return this.NotFound();
-            return this.Ok(book);
+            var item = _business.GetByIdAsync(id);
+            if (item == null) return this.NotFound();
+            return this.Ok(item);
         }
 
         [HttpPost("PagedSearch")]
@@ -62,21 +62,21 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse((201), Type = typeof(BookVO))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public IActionResult Create([FromBody]Book book)
+        public IActionResult Create([FromBody]Book item)
         {
-            if (book == null) return BadRequest();
-            return new ObjectResult(_business.Create(book));
+            if (item == null) return BadRequest();
+            return new ObjectResult(_business.Create(item));
         }
 
         [HttpPut]
         [SwaggerResponse((202), Type = typeof(BookVO))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public IActionResult Update([FromBody]Book book)
+        public IActionResult Update([FromBody]Book item)
         {
-            var updated = _business.Update(book);
+            var updated = _business.Update(item);
             if (updated.Id == null) return this.BadRequest();
-            return new ObjectResult(_business.Update(book));
+            return new ObjectResult(_business.Update(item));
         }
 
         [HttpDelete("{id}")]

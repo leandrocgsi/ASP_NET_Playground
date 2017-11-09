@@ -93,6 +93,8 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse(401)]
         public IActionResult Delete(string id)
         {
+            if (id == null || "".Equals(id)) return BadRequest();
+            if (!_business.Delete(id)) return NotFound();
             _business.Delete(id);
             return new NoContentResult();
         }
