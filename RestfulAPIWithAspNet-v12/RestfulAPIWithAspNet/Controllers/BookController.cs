@@ -5,6 +5,9 @@ using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Net;
+using System;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -25,12 +28,20 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
+        [SwaggerResponse(200)]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IEnumerable<BookVO> GetAllAsync()
         {
             return _business.FindAll();
         }
 
         [HttpGet("{id}")]
+        [SwaggerResponse(200)]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult GetByIdAsync(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
@@ -40,12 +51,19 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPost("PagedSearch")]
+        [SwaggerResponse(200)]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
             return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
 
         [HttpPost]
+        [SwaggerResponse(201)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Create([FromBody]Book book)
         {
             if (book == null) return BadRequest();
@@ -53,6 +71,9 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPut]
+        [SwaggerResponse(202)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Update([FromBody]Book book)
         {
             var updated = _business.Update(book);
@@ -61,6 +82,9 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Delete(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
