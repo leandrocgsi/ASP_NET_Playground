@@ -28,7 +28,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
-        [SwaggerResponse(200)]
+        [SwaggerResponse((200), Type = typeof(List<BookVO>))]
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
@@ -38,7 +38,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet("{id}")]
-        [SwaggerResponse(200)]
+        [SwaggerResponse((200), Type = typeof(BookVO))]
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
@@ -51,7 +51,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPost("PagedSearch")]
-        [SwaggerResponse(200)]
+        [SwaggerResponse((200), Type = typeof(PagedSearchDTO<Book>))]
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
@@ -61,7 +61,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPost]
-        [SwaggerResponse(201)]
+        [SwaggerResponse((201), Type = typeof(BookVO))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
         public IActionResult Create([FromBody]Book book)
@@ -71,7 +71,7 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPut]
-        [SwaggerResponse(202)]
+        [SwaggerResponse((202), Type = typeof(BookVO))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
         public IActionResult Update([FromBody]Book book)
