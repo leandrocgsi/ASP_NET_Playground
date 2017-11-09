@@ -32,7 +32,7 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public IEnumerable<BookVO> GetAllAsync()
+        public IEnumerable<BookVO> GetAll()
         {
             return _business.FindAll();
         }
@@ -42,7 +42,7 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse(204)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public IActionResult GetByIdAsync(string id)
+        public IActionResult GetById(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
             var book = _business.GetByIdAsync(id);
