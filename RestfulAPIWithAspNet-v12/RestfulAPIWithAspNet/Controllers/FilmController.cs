@@ -5,6 +5,9 @@ using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Net;
+using System;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -23,13 +26,21 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<FilmVO> GetAllAsync()
+        [SwaggerResponse((200), Type = typeof(List<FilmVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IEnumerable<FilmVO> GetAll()
         {
             return _business.FindAll();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetByIdAsync(string id)
+        [SwaggerResponse((200), Type = typeof(FilmVO))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IActionResult GetById(string id)
         {
             var item = _business.GetByIdAsync(id);
             if (item == null)
@@ -40,12 +51,19 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPost("PagedSearch")]
+        [SwaggerResponse((200), Type = typeof(PagedSearchDTO<Book>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Film> pagedSearchDTO)
         {
             return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
 
         [HttpPost]
+        [SwaggerResponse((201), Type = typeof(FilmVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Create([FromBody]Film item)
         {
             if (item == null)
@@ -57,6 +75,9 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpPut]
+        [SwaggerResponse((202), Type = typeof(FilmVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Update([FromBody]Film item)
         {
             if (item == null)
@@ -68,6 +89,9 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Delete(string id)
         {
             _business.Delete(id);
