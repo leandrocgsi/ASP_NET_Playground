@@ -40,7 +40,6 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse(401)]
         public IActionResult GetById(string id)
         {
-			if (id == null || "".Equals(id)) return BadRequest();
             var item = _business.GetByIdAsync(id);
             if (item == null)
             {
