@@ -1,7 +1,7 @@
-﻿using restful_api_with_aspnet.Models;
+﻿using RestfulAPIWithAspNet.Models;
 using System.Collections.Generic;
 
-namespace restful_api_with_aspnet.Repository
+namespace RestfulAPIWithAspNet.Repository
 {
     public interface IContactsRepository
     {
