@@ -5,6 +5,7 @@ using RestfulAPIWithAspNet.Data.DTO;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -25,42 +26,63 @@ namespace RestfulAPIWithAspNet.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BookVO> GetAllAsync()
+        [SwaggerResponse((200), Type = typeof(List<BookVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IEnumerable<BookVO> GetAll()
         {
             return _business.FindAll();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetByIdAsync(string id)
+        [SwaggerResponse((200), Type = typeof(BookVO))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IActionResult GetById(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
-            var book = _business.GetByIdAsync(id);
-            if (book == null) return this.NotFound();
-            return this.Ok(book);
+            var item = _business.GetByIdAsync(id);
+            if (item == null) return this.NotFound();
+            return this.Ok(item);
         }
 
         [HttpPost("PagedSearch")]
+        [SwaggerResponse((200), Type = typeof(PagedSearchDTO<Book>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult PagedSearch([FromBody] PagedSearchDTO<Book> pagedSearchDTO)
         {
             return new ObjectResult(_business.PagedSearch(pagedSearchDTO));
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]Book book)
+        [SwaggerResponse((201), Type = typeof(BookVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IActionResult Create([FromBody]Book item)
         {
-            if (book == null) return BadRequest();
-            return new ObjectResult(_business.Create(book));
+            if (item == null) return BadRequest();
+            return new ObjectResult(_business.Create(item));
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Book book)
+        [SwaggerResponse((202), Type = typeof(BookVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        public IActionResult Update([FromBody]Book item)
         {
-            var updated = _business.Update(book);
+            var updated = _business.Update(item);
             if (updated.Id == null) return this.BadRequest();
-            return new ObjectResult(_business.Update(book));
+            return new ObjectResult(_business.Update(item));
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
         public IActionResult Delete(string id)
         {
             if (id == null || "".Equals(id)) return BadRequest();
