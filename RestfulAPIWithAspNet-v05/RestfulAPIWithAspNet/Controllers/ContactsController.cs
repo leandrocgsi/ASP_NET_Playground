@@ -1,9 +1,9 @@
-﻿using restful_api_with_aspnet.Models;
-using restful_api_with_aspnet.Repository;
+﻿using RestfulAPIWithAspNet.Models;
+using RestfulAPIWithAspNet.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace restful_api_with_aspnet.Controllers
+namespace RestfulAPIWithAspNet.Controllers
 {
     [Route("api/[controller]")]
     public class ContactsController : Controller

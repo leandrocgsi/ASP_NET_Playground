@@ -1,10 +1,10 @@
-﻿using restful_api_with_aspnet.Models;
-using restful_api_with_aspnet.Repository;
+﻿using RestfulAPIWithAspNet.Models;
+using RestfulAPIWithAspNet.Repository;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace restful_api_with_aspnet.Controllers
+namespace RestfulAPIWithAspNet.Controllers
 {
     [Route("api/[controller]")]
     public class BooksController : ControllerBase

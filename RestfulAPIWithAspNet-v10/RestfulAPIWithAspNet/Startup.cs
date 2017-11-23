@@ -35,7 +35,7 @@ namespace RestfulAPIWithAspNet
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["ConexaoMySql:MySqlConnectionString"];
+            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
