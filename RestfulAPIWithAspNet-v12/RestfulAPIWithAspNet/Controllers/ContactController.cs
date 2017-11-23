@@ -12,14 +12,11 @@ namespace RestfulAPIWithAspNet.Controllers
     [Route("api/[controller]")]
     public class ContactController : Controller
     {
-        private readonly ILogger _logger;
-
         private ContactBusiness _business;
 
         public ContactController(ContactBusiness business, ILogger<ContactController> logger)
         {
             _business = business;
-            _logger = logger;
         }
 
         [HttpGet]

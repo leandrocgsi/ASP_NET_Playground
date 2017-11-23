@@ -13,14 +13,11 @@ namespace RestfulAPIWithAspNet.Controllers
     public class FilmController : ControllerBase
     {
 
-        private readonly ILogger _logger;
-
         private FilmBusiness _business;
 
         public FilmController(FilmBusiness business, ILogger<FilmController> logger)
         {
             _business = business;
-            _logger = logger;
         }
 
         [HttpGet]
