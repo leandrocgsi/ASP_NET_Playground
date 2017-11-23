@@ -15,14 +15,11 @@ namespace RestfulAPIWithAspNet.Controllers
     public class BookController : ControllerBase
     {
 
-        private readonly ILogger _logger;
-
         private BookBusiness _business;
 
-        public BookController(BookBusiness business, ILogger<BookController> logger)
+        public BookController(BookBusiness business)
         {
             _business = business;
-            _logger = logger;
         }
 
         [HttpGet]
