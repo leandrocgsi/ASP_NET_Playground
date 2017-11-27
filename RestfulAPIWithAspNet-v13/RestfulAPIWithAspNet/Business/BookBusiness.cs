@@ -6,6 +6,7 @@ using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Utils.Data;
 using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Data.VO;
+using I18N;
 
 namespace RestfulAPIWithAspNet.Business
 {
@@ -21,6 +22,7 @@ namespace RestfulAPIWithAspNet.Business
 
         public BookBusiness(IRepository<Book> repository, ILogger<BookBusiness> logger)
         {
+            var x = Resource.WELCOME;
             _bookRepository = repository;
             _converter = new BookConverter();
             _logger = logger;
