@@ -27,7 +27,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetOffSet()
         {
-            return $" limit {pagedSearchDTO.GetPageSize()} "; //offset {pagedSearchDTO.GetPageSize()} ";
+            return $" limit {pagedSearchDTO.GetPageSize()} offset {pagedSearchDTO.GetCurrentPage()} ";
         }
 
 

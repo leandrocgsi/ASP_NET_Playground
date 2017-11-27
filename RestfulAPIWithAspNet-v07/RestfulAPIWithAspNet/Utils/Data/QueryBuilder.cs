@@ -1,4 +1,5 @@
 ﻿using RestfulAPIWithAspNet.Data.DTO;
+using RestfulAPIWithAspNet.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,7 +27,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetOffSet()
         {
-            return $" offset {GetStart()} rows fetch next {pagedSearchDTO.GetPageSize()} rows only";
+            return $" limit {pagedSearchDTO.GetPageSize()} offset {pagedSearchDTO.GetCurrentPage()} ";
         }
 
 
@@ -37,6 +38,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         public String GetWhereAndParameters(String alias)
         {
+            if (pagedSearchDTO.Filters == null) return "";
             String query = " where ";
             foreach (var entry in pagedSearchDTO.Filters)
             {
@@ -44,28 +46,29 @@ namespace RestfulAPIWithAspNet.Utils.Data
                 {
                     String key = entry.Key;
                     Object value = entry.Value;
+                    String sanitizedValue = DatabaseHelper.SanitizeSqlParameter($"{entry.Value}");
 
                     String column = GetRealColumnName(key);
 
                     if (IsDateTimeType(value.ToString()))
                     {
-                        query = query + "CAST(REPLACE(" + alias + "." + column + ", '-', '') AS DATE) = CAST(REPLACE('" + value + "', '-', '') AS DATE) and ";
+                        query = query + "CAST(REPLACE(" + alias + "." + column + ", '-', '') AS DATE) = CAST(REPLACE('" + $"{value}" + "', '-', '') AS DATE) and ";
                     }
                     else if (value.GetType() == typeof(int))
                     {
-                        query = query + alias + "." + column + " = " + value + " and ";
+                        query = query + alias + "." + column + " = " + sanitizedValue + " and ";
                     }
                     else if (value.GetType() == typeof(double))
                     {
-                        query = query + alias + "." + column + " = '" + value + "' and ";
+                        query = query + alias + "." + column + " = '" + sanitizedValue + "' and ";
                     }
                     else if (value.GetType() == typeof(string))
                     {
-                        query = query + alias + "." + column + " like '%" + value + "%'" + " and ";
+                        query = query + alias + "." + column + " like '%" + sanitizedValue + "%'" + " and ";
                     }
                     else
                     {
-                        query = query + alias + "." + column + " = " + value + " and ";
+                        query = query + alias + "." + column + " = " + sanitizedValue + " and ";
                     }
                 }
             }
@@ -75,7 +78,7 @@ namespace RestfulAPIWithAspNet.Utils.Data
 
         private static bool KeyAndValueIsNotNull(KeyValuePair<string, object> entry)
         {
-            return entry.Key != null && entry.Value != null && !String.IsNullOrEmpty(entry.Key.ToString()) && !String.IsNullOrEmpty(entry.Value.ToString());
+            return !string.IsNullOrWhiteSpace($"{entry.Key}") && !string.IsNullOrWhiteSpace($"{entry.Value}");
         }
 
         public String GetQueryFromDTO(String alias, String entityName)
@@ -105,13 +108,14 @@ namespace RestfulAPIWithAspNet.Utils.Data
             return $"select * from {entityName} {alias} ";
         }
 
-        public String GetBaseSelectCount(String alias, String entityName)
+        public String GetSelectCount(String alias, String entityName)
         {
             return $"select count(*) from {entityName} {alias} ";
         }
 
         public String GetRealColumnName(string attributeName)
         {
+            if (attributeName == null) return "Id";
             var myType = typeof(T);
 
             var myProperty = myType.GetProperty(attributeName);
