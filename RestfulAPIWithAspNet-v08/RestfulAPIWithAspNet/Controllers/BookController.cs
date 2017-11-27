@@ -60,7 +60,7 @@ namespace RestfulAPIWithAspNet.Controllers
                 //return BaseResult<PagedSearchDTO<Book>>.Fail(BookErrors.COLLABORATOR_NOT_FOUND);
             }
             pagedSearchDTO.List = collaborators;
-            pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("b", "book"), parameters);
+            pagedSearchDTO.TotalResults = _bookRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetSelectCount("b", "book"), parameters);
 
             //return BaseResult<PagedSearchDTO<Book>>.Success(_pagedSearchBuilder.Convert(pagedSearchDTO));
             return new ObjectResult(pagedSearchDTO);

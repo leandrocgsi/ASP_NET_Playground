@@ -79,7 +79,7 @@ namespace RestfulAPIWithAspNet.Controllers
             string query = queryBuilder.WithDTO(pagedSearchDTO).GetQueryFromDTO("c", "contacts");
 
             pagedSearchDTO.List = _ContactRepository.FindWithPagedSearch(query);
-            pagedSearchDTO.TotalResults = _ContactRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetBaseSelectCount("c", "contacts"));
+            pagedSearchDTO.TotalResults = _ContactRepository.GetCount(queryBuilder.WithDTO(pagedSearchDTO).GetSelectCount("c", "contacts"));
 
             return new ObjectResult(pagedSearchDTO);
         }
