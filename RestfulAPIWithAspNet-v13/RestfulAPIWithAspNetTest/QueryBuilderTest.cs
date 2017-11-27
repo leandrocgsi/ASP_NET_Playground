@@ -79,9 +79,7 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a geração da query final")]
         public void GetQueryFromDTOTest()
         {
-            //HACK: Fix offset to MySQL
-            //String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc offset 0 rows fetch next 10 rows only";
-            String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc";
+            String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc limit 10 offset 1 ";
             Assert.AreEqual(selectWithParameters, queryBuilder.WithDTO(dto).GetQueryFromDTO("p", "Person"));
         }
 
@@ -96,10 +94,10 @@ namespace RestfulAPIWithAspNet.Test
         [Description("Testa a geração do offset de páginação")]
         public void GetOffSetTest()
         {
-            Assert.AreEqual(" offset 0 rows fetch next 10 rows only", queryBuilder.WithDTO(dto).GetOffSet());
+            Assert.AreEqual(" limit 10 offset 1 ", queryBuilder.WithDTO(dto).GetOffSet());
         }
 
-        [TestMethod]
+        [TestMethod] 
         [Description("Testa a recuperação do realname de uma coluna no banco")]
         public void GetRealColumnNameTest()
         {
