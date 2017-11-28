@@ -12,10 +12,10 @@ namespace RestfulAPIWithAspNet.Utils
     public class I18NMessageHandler : DelegatingHandler
     {
         private const string portuguese = "pt-BR";
-        private const string french = "fr-FR";
+        private const string spanish = "es-ES";
         private const string english = "en-US";
 
-        private readonly List<string> _supportedLanguages = new List<string> { portuguese, french, english };
+        private readonly List<string> _supportedLanguages = new List<string> { portuguese, spanish, english };
 
         private bool SetHeaderIfAcceptLanguageMatchesSupportedLanguage(HttpRequestMessage request)
         {
