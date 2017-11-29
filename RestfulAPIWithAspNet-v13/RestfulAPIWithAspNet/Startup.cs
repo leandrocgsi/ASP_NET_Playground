@@ -88,6 +88,7 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            //SEE: https://damienbod.com/2015/10/21/asp-net-5-mvc-6-localization/ and http://syantien.com/asp-net/localization-2/
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
