@@ -51,10 +51,10 @@ namespace RestfulAPIWithAspNet.Business
             return pagedSearchDTO;
         }
 
-        public BookVO Create(Book book)
+        public BookVO Create(BookVO book)
         {
             if (book == null) return new BookVO();
-            var returnBook = _bookRepository.Add(book);
+            var returnBook = _bookRepository.Add(_converter.Parse(book));
             return _converter.Parse(returnBook);
         }
 

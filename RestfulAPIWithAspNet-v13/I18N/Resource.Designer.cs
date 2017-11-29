@@ -61,6 +61,15 @@ namespace I18N {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Campo obrigatório Title não definido.
+        /// </summary>
+        public static string REQUIRED_FIELD_TITLE_UNDEFINED {
+            get {
+                return ResourceManager.GetString("REQUIRED_FIELD_TITLE_UNDEFINED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Bem-vindo.
         /// </summary>
         public static string WELCOME {

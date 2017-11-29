@@ -59,9 +59,10 @@ namespace RestfulAPIWithAspNet.Controllers
         [SwaggerResponse((201), Type = typeof(BookVO))]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public IActionResult Create([FromBody]Book item)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([FromBody]BookVO item)
         {
-            if (item == null) return BadRequest();
+            if (!ModelState.IsValid || item == null) return BadRequest();
             return new ObjectResult(_business.Create(item));
         }
 
