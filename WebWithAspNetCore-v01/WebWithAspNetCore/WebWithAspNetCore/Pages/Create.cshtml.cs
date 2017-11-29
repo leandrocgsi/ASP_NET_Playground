@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using RestfulAPIWithAspNet.Data;
+using WebWithAspNetCore.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestfulAPIWithAspNet.Pages
+namespace WebWithAspNetCore.Pages
 {
     public class CreateModel : PageModel
     {

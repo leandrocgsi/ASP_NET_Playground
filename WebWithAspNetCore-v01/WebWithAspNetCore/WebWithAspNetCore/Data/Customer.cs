@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestfulAPIWithAspNet.Data
+namespace WebWithAspNetCore.Data
 {
     public class Customer
     {

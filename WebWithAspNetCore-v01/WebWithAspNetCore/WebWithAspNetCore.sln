@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfulAPIWithAspNet", "RestfulAPIWithAspNet\RestfulAPIWithAspNet.csproj", "{33D75C2A-46F1-4DDF-87F0-11F9CDCC24E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWithAspNetCore", "WebWithAspNetCore\WebWithAspNetCore.csproj", "{33D75C2A-46F1-4DDF-87F0-11F9CDCC24E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

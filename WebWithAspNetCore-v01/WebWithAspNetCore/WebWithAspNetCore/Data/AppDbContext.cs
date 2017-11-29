@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestfulAPIWithAspNet.Data
+namespace WebWithAspNetCore.Data
 {
     public class AppDbContext : DbContext
     {

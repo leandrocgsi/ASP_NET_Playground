@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RestfulAPIWithAspNet.Data;
+using WebWithAspNetCore.Data;
 using Microsoft.Extensions.Configuration;
 
-namespace RestfulAPIWithAspNet
+namespace WebWithAspNetCore
 {
     public class Startup
     {
