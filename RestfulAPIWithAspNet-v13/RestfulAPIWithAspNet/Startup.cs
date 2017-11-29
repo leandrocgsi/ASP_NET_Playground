@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using RestfulAPIWithAspNet.Filters;
+using Microsoft.Extensions.Options;
 
 namespace RestfulAPIWithAspNet
 {
@@ -44,6 +45,8 @@ namespace RestfulAPIWithAspNet
             services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
+
+            services.AddLocalization();
 
             services.AddMvc()
                 .AddViewLocalization()
@@ -84,6 +87,11 @@ namespace RestfulAPIWithAspNet
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
+            app.UseStaticFiles();
 
             //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             app.UseSwagger();
