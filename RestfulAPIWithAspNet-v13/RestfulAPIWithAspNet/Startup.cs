@@ -16,6 +16,10 @@ using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using RestfulAPIWithAspNet.Filters;
 
 namespace RestfulAPIWithAspNet
 {
@@ -41,7 +45,27 @@ namespace RestfulAPIWithAspNet
                 options.UseMySql(connection)
             );
 
-            services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization()
+                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            services.AddScoped<LanguageActionFilter>();
+
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("pt-BR"),
+                        new CultureInfo("en-US"),
+                        new CultureInfo("es-ES"),
+                    };
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
 
             services.AddSwaggerGen(c =>
             {
