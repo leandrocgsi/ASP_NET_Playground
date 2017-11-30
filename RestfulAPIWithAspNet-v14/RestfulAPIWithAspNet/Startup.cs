@@ -11,16 +11,13 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
-using UpBrasil.OTP.API.Utils;
-using RestfulAPIWithAspNet.Conveters;
-using RestfulAPIWithAspNet.Models.Entities;
-using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using RestfulAPIWithAspNet.Filters;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace RestfulAPIWithAspNet
 {
@@ -48,7 +45,12 @@ namespace RestfulAPIWithAspNet
 
             services.AddLocalization();
 
-            services.AddMvc()
+            services.AddMvc(options =>
+                { //Content Negotiation
+                    options.RespectBrowserAcceptHeader = true;
+                    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                })
+                .AddXmlSerializerFormatters()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization()
                 .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
