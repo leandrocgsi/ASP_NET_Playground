@@ -137,7 +137,7 @@ namespace RestfulAPIWithAspNet.Controllers
 
             links.Add(new Link
             {
-                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Href = _URLHelper.Link("DefaultApi", new { controller = "Book", id = book.Id }),
                 Rel = "self",
                 Method = "DELETE"
             });
