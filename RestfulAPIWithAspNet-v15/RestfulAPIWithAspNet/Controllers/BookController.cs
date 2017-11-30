@@ -6,6 +6,7 @@ using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using RestfulAPIWithAspNet.HATEOAS;
 
 namespace RestfulAPIWithAspNet.Controllers
 {
@@ -16,10 +17,12 @@ namespace RestfulAPIWithAspNet.Controllers
     {
 
         private BookBusiness _business;
+        private HATEOASHelper _HATEOASHelper;
 
-        public BookController(BookBusiness business)
+        public BookController(BookBusiness business, HATEOASHelper hateoasHelper)
         {
             _business = business;
+            _HATEOASHelper = hateoasHelper;
         }
 
         [HttpGet]
@@ -42,6 +45,7 @@ namespace RestfulAPIWithAspNet.Controllers
             if (id == null || "".Equals(id)) return BadRequest();
             var item = _business.GetByIdAsync(id);
             if (item == null) return this.NotFound();
+           // item.AddLinks(_HATEOASHelper.CreateLinks(item));
             return this.Ok(item);
         }
 

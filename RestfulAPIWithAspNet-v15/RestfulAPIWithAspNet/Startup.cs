@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Localization;
 using RestfulAPIWithAspNet.Filters;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using RestfulAPIWithAspNet.HATEOAS;
 
 namespace RestfulAPIWithAspNet
 {
@@ -80,6 +81,8 @@ namespace RestfulAPIWithAspNet
             services.AddScoped<BookBusiness>();
             services.AddScoped<ContactBusiness>();
             services.AddScoped<FilmBusiness>();
+
+            services.AddScoped<HATEOASHelper> ();
 
             //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
