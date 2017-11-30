@@ -18,11 +18,13 @@ namespace RestfulAPIWithAspNet.Controllers
 
         private BookBusiness _business;
         private HATEOASHelper _HATEOASHelper;
+        private IUrlHelper _URLHelper;
 
-        public BookController(BookBusiness business, HATEOASHelper hateoasHelper)
+        public BookController(BookBusiness business, HATEOASHelper hateoasHelper, IUrlHelper urlHelper)
         {
             _business = business;
             _HATEOASHelper = hateoasHelper;
+            _URLHelper = urlHelper;
         }
 
         [HttpGet]
@@ -45,8 +47,8 @@ namespace RestfulAPIWithAspNet.Controllers
             if (id == null || "".Equals(id)) return BadRequest();
             var item = _business.GetByIdAsync(id);
             if (item == null) return this.NotFound();
-           // item.AddLinks(_HATEOASHelper.CreateLinks(item));
-            return this.Ok(item);
+            var outputModel = ToOutputModel_Links(item);
+            return Ok(outputModel);
         }
 
         [HttpPost("PagedSearch")]
@@ -90,6 +92,57 @@ namespace RestfulAPIWithAspNet.Controllers
             if (id == null || "".Equals(id)) return BadRequest();
             if (!_business.Delete(id)) return NotFound();
             return new NoContentResult();
+        }
+
+        private LinksWrapper<BookVO> ToOutputModel_Links(BookVO model)
+        {
+            return new LinksWrapper<BookVO>
+            {
+                Value = model,
+                Links = CreateLinks(model)
+            };
+        }
+
+        private List<Link> CreateLinks(BookVO book)
+        {
+            var links = new List<Link>();
+
+            links.Add(new Link
+            {
+                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Rel = "self",
+                Method = "GET"
+            });
+
+            links.Add(new Link
+            {
+                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Rel = "self",
+                Method = "POST"
+            });
+
+            links.Add(new Link
+            {
+                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Rel = "self",
+                Method = "PUT"
+            });
+
+            links.Add(new Link
+            {
+                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Rel = "self",
+                Method = "PATCH"
+            });
+
+            links.Add(new Link
+            {
+                Href = _URLHelper.Link("/api/Book/", new { id = book.Id }),
+                Rel = "self",
+                Method = "DELETE"
+            });
+
+            return links;
         }
     }
 }
