@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace HyperMedia
+namespace HATEOAS
 {
     /// <summary>
     /// Interface for any class that wants to enrich a response

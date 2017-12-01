@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using System;
 using System.Threading.Tasks;
 
-namespace HyperMedia
+namespace HATEOAS
 {
     /// <summary>
     /// Base class for enriching Models

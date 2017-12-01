@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HyperMedia
+namespace HATEOAS
 {
     /// <summary>
     /// Interface for models that support Hypermedia

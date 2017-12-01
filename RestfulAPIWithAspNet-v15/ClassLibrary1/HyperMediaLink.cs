@@ -1,4 +1,4 @@
-﻿namespace HyperMedia
+﻿namespace HATEOAS
 {
     /// <summary>
     /// Valid RFC 5988 relation types

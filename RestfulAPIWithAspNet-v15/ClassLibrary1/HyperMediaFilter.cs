@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HyperMedia
+namespace HATEOAS
 {
     public class HyperMediaFilter : ResultFilterAttribute
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HyperMedia
+namespace HATEOAS
 {
     public class HyperMediaFilterOptions
     {
