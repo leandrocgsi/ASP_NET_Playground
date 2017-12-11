@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Threading;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using I18N;
 
