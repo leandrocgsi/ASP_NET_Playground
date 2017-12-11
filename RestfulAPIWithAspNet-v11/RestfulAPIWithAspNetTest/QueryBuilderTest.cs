@@ -23,7 +23,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração do select inicial")]
+        [Description("Tests the generation of the initial part of select")]
         public void GetBaseSelectTest()
         {
             String baseSelect = "select * from Person p ";
@@ -31,14 +31,14 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a definição da página inicial do select")]
+        [Description("Tests the generation of the initial page from select")]
         public void GetStartTest()
         {
             Assert.AreEqual(0, queryBuilder.WithDTO(dto).GetStart());
         }
 
         [TestMethod]
-        [Description("Testa o select count(*) inicial para a query")]
+        [Description("Tests the generation of the select count(*) to query")]
         public void GetBaseSelectCount()
         {
             String baseSelect = "select count(*) from Person p ";
@@ -46,7 +46,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração do where e das cláusulas")]
+        [Description("Tests where and clauses generation")]
         public void GetWhereAndParametersTest()
         {
             String whereClause = " where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1 ";
@@ -54,7 +54,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração do where e das cláusulas com uma key vazia")]
+        [Description("Tests where and clauses generation with an empty key")]
         public void GetWhereAndParametersWithBlankStringKeyTest()
         {
             Dictionary<String, Object> filters = MockFilters();
@@ -65,7 +65,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração do where e das cláusulas com uma value vazia")]
+        [Description("Tests where and clauses generation with an empty value")]
         public void GetWhereAndParametersWithBlankStringValueTest()
         {
             Dictionary<String, Object> filters = new Dictionary<String, Object>();
@@ -76,7 +76,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração da query final")]
+        [Description("Tests the generation of the final query")]
         public void GetQueryFromDTOTest()
         {
             String selectWithParameters = "select * from Person p  where p.name like '%LEANDRO%' and p.email like '%a@b.c%' and p.phone like '%12345678998%' and 1 = 1  order by p.name asc limit 10 offset 1 ";
@@ -84,28 +84,28 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração do order by")]
+        [Description("Tests the generation of the order by")]
         public void GetOrderByTest()
         {
             Assert.AreEqual(" order by p.name asc", queryBuilder.WithDTO(dto).GetOrderBy("p"));
         }
 
         [TestMethod]
-        [Description("Testa a geração do offset de páginação")]
+        [Description("Tests the generation of offset of pagination")]
         public void GetOffSetTest()
         {
             Assert.AreEqual(" limit 10 offset 1 ", queryBuilder.WithDTO(dto).GetOffSet());
         }
 
-        [TestMethod]
-        [Description("Testa a recuperação do realname de uma coluna no banco")]
+        [TestMethod] 
+        [Description("Tests recovery of realname of a column in database")]
         public void GetRealColumnNameTest()
         {
             Assert.AreEqual("id", queryBuilderBook.WithDTO(dtoBook).GetRealColumnName("Id"));
         }
 
         [TestMethod]
-        [Description("Testa a recuperação do realname de uma coluna no banco")]
+        [Description("Tests string date time converter")]
         public void IsDateTimeTypeTest()
         {
             Assert.IsTrue(queryBuilderBook.WithDTO(dtoBook).IsDateTimeType("04/10/2017 19:52:07"));
@@ -119,7 +119,7 @@ namespace RestfulAPIWithAspNet.Test
         }
 
         [TestMethod]
-        [Description("Testa a geração dos alias das colunas")]
+        [Description("Tests the generation of columns alias")]
         public void TestGetColumnsAlias()
         {
             Assert.AreEqual("*", queryBuilder.WithDTO(dto).GetColumnsAlias());
