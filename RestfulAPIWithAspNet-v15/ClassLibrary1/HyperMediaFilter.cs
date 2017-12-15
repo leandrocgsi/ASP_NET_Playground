@@ -27,8 +27,7 @@ namespace HATEOAS
                 if (okObjectResult.Value is ISupportsHyperMedia model)
                 {
                     var enricher = _hyperMediaFilterOptions.ObjectContentResponseEnricherList.FirstOrDefault(x => x.CanEnrich(context));
-                    if (enricher != null)
-                        Task.FromResult(enricher.Enrich(context));
+                    if (enricher != null) Task.FromResult(enricher.Enrich(context));
                 }
             }
         }
