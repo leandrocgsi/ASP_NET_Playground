@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace UpBrasil.OTP.API.Tests.Controllers
+namespace RestfulAPIWithAspNet.Test
 {
     [TestClass]
     public class UnixTimeTest
