@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\HATEOAS.csproj" />
+    <ProjectReference Include="..\HATEOAS\HATEOAS.csproj" />
     <ProjectReference Include="..\I18N\I18N.csproj" />
   </ItemGroup>
 
