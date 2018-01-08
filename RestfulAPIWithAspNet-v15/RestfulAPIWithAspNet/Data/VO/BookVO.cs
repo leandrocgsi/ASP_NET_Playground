@@ -17,6 +17,6 @@ namespace RestfulAPIWithAspNet.Data.VO
         public decimal Price { get; set; }
         public DateTime LaunchDate { get; set; } = DateTime.UtcNow;
 
-        public List<HyperMediaLink> Links { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

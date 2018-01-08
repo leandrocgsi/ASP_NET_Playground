@@ -22,6 +22,8 @@ using RestfulAPIWithAspNet.HATEOAS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using RestfulAPIWithAspNet.Middleware;
+using HATEOAS;
 
 namespace RestfulAPIWithAspNet
 {
@@ -93,6 +95,10 @@ namespace RestfulAPIWithAspNet
             });
             services.AddScoped<HATEOASHelper> ();
 
+            var filtertOptions = new HyperMediaFilterOptions();
+            filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
+            services.AddSingleton(filtertOptions);
+
             //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
@@ -116,6 +122,13 @@ namespace RestfulAPIWithAspNet
             });
 
             app.UseMvc();
+
+            /*            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}");
+            });*/
 
             RedirectToSwaggerPage(app);
 
