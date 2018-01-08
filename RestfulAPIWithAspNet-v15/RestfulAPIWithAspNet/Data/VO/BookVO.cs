@@ -1,10 +1,12 @@
-﻿using I18N;
+﻿using HATEOAS;
+using I18N;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace RestfulAPIWithAspNet.Data.VO
 {
-    public class BookVO
+    public class BookVO : ISupportsHyperMedia
     {
         public string Id { get; set; }
 
@@ -14,5 +16,7 @@ namespace RestfulAPIWithAspNet.Data.VO
         public string Author { get; set; }
         public decimal Price { get; set; }
         public DateTime LaunchDate { get; set; } = DateTime.UtcNow;
+
+        public List<HyperMediaLink> Links { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
