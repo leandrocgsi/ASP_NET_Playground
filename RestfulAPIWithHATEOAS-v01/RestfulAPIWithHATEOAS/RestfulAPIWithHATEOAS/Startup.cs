@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,11 @@ namespace RestfulAPIWithHATEOAS
         {
             services.AddMvc();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
             var filtertOptions = new HyperMediaFilterOptions();
             filtertOptions.ObjectContentResponseEnricherList.Add(new ProductModelEnricher());
             services.AddSingleton(filtertOptions);
@@ -46,7 +52,13 @@ namespace RestfulAPIWithHATEOAS
             }
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            //app.UseSimpleRensponeInterceptor();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
