@@ -1,40 +1,43 @@
 ﻿using HATEOAS;
 using Microsoft.AspNetCore.Mvc;
-using RestfulAPIWithAspNet.Data.VO;
+using RestfulAPIWithHATEOAS.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestfulAPIWithAspNet.Middleware
+namespace RestfulAPIWithHATEOAS.HyperMedia
 {
-    public class BookVOEnricher : ObjectContentResponseEnricher<BookVO>
+    public class ProductModelEnricher : ObjectContentResponseEnricher<ProductModel>
     {
-        protected override Task EnrichModel(BookVO content, IUrlHelper urlHelper)
+        protected override Task EnrichModel(ProductModel content, IUrlHelper urlHelper)
         {
             //https://blogs.msdn.microsoft.com/roncain/2012/07/17/using-the-asp-net-web-api-urlhelper/
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,
-                Href = urlHelper.Link("DefaultApi", new { controller = "Book", id = content.Id }),
+                Href = urlHelper.Link("DefaultApi", new { controller = "Products", id = content.Id }),
                 Rel = RelationType.self,
                 Type = RensponseTypeFormat.DefaultGet
             });
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.POST,
-                Href = urlHelper.Link("DefaultApi", new { controller = "Book", id = content.Id }),
+                Href = urlHelper.Link("DefaultApi", new { controller = "Products", id = content.Id }),
                 Rel = RelationType.self,
                 Type = RensponseTypeFormat.DefaultPost
             });
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.PUT,
-                Href = urlHelper.Link("DefaultApi", new { controller = "Book", id = content.Id }),
+                Href = urlHelper.Link("DefaultApi", new { controller = "Products", id = content.Id }),
                 Rel = RelationType.self,
                 Type = RensponseTypeFormat.DefaultPost
             });
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.DELETE,
-                Href = urlHelper.Link("DefaultApi", new { controller = "Book", id = content.Id }),
+                Href = urlHelper.Link("DefaultApi", new { controller = "Products", id = content.Id }),
                 Rel = RelationType.self,
                 Type = "int"
             });

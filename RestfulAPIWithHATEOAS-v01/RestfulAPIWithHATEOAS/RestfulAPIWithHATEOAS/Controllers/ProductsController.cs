@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using HATEOAS;
+using RestfulAPIWithHATEOAS.Models;
 
 namespace RestfulAPIWithHATEOAS.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ProductsController : Controller
     {
         // GET api/values
         [HttpGet]
@@ -18,9 +20,13 @@ namespace RestfulAPIWithHATEOAS.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public async Task<IActionResult> GetAsync(int id)
         {
-            return "value";
+            var m = new ProductModel();
+            m.Id = 100;
+            m.Name = "test";
+            return await Task.FromResult(new OkObjectResult(m));
         }
 
         // POST api/values

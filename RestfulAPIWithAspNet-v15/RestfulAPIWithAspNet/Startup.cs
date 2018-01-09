@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Localization;
 using RestfulAPIWithAspNet.Filters;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using RestfulAPIWithAspNet.HATEOAS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -93,7 +92,6 @@ namespace RestfulAPIWithAspNet
                 var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
             });
-            services.AddScoped<HATEOASHelper> ();
 
             var filtertOptions = new HyperMediaFilterOptions();
             filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
