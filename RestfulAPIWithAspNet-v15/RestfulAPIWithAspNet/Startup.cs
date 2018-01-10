@@ -50,7 +50,8 @@ namespace RestfulAPIWithAspNet
 
             services.AddLocalization();
 
-            services.AddMvc(options =>
+            services.AddMvc();
+            /*services.AddMvc(options =>
                 { //Content Negotiation
                     options.RespectBrowserAcceptHeader = true;
                     options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
@@ -58,7 +59,7 @@ namespace RestfulAPIWithAspNet
                 .AddXmlSerializerFormatters()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization()
-                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());*/
 
             services.AddScoped<LanguageActionFilter>();
 
@@ -103,13 +104,17 @@ namespace RestfulAPIWithAspNet
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             //SEE: https://damienbod.com/2015/10/21/asp-net-5-mvc-6-localization/ and http://syantien.com/asp-net/localization-2/
             var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
-
             app.UseStaticFiles();
 
             //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
@@ -119,26 +124,19 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseMvc();
-
-            /*            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "DefaultApi",
-                    template: "{controller=Values}/{id?}");
-            });*/
-
-            RedirectToSwaggerPage(app);
-
-            InitDataBase.Initialize(context);
-        }
-
-        private static void RedirectToSwaggerPage(IApplicationBuilder app)
-        {
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
 
             app.UseRewriter(option);
+
+            InitDataBase.Initialize(context);
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}");
+            });
         }
     }
 }
