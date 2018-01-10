@@ -13,6 +13,7 @@ namespace RestfulAPIWithHATEOAS.HyperMedia
         protected override Task EnrichModel(ProductModel content, IUrlHelper urlHelper)
         {
             //https://blogs.msdn.microsoft.com/roncain/2012/07/17/using-the-asp-net-web-api-urlhelper/
+
             content.Links.Add(new HyperMediaLink()
             {
                 Action = HttpActionVerb.GET,
