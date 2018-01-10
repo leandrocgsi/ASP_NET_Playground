@@ -48,7 +48,7 @@ namespace RestfulAPIWithAspNet
                 options.UseMySql(connection)
             );
 
-            services.AddLocalization();
+            //services.AddLocalization();
 
             services.AddMvc();
             /*services.AddMvc(options =>
@@ -61,9 +61,9 @@ namespace RestfulAPIWithAspNet
                 .AddDataAnnotationsLocalization()
                 .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());*/
 
-            services.AddScoped<LanguageActionFilter>();
+            //services.AddScoped<LanguageActionFilter>();
 
-            services.Configure<RequestLocalizationOptions>(
+            /*services.Configure<RequestLocalizationOptions>(
                 options =>
                 {
                     var supportedCultures = new List<CultureInfo>
@@ -76,12 +76,16 @@ namespace RestfulAPIWithAspNet
                     options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
                     options.SupportedCultures = supportedCultures;
                     options.SupportedUICultures = supportedCultures;
-                });
+                });*/
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
+            var filtertOptions = new HyperMediaFilterOptions();
+            filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
+            services.AddSingleton(filtertOptions);
 
             services.AddScoped<BookBusiness>();
             services.AddScoped<ContactBusiness>();
@@ -92,11 +96,8 @@ namespace RestfulAPIWithAspNet
             {
                 var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
-            });
+            }); 
 
-            var filtertOptions = new HyperMediaFilterOptions();
-            filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
-            services.AddSingleton(filtertOptions);
 
             //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
@@ -113,9 +114,9 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddDebug();
 
             //SEE: https://damienbod.com/2015/10/21/asp-net-5-mvc-6-localization/ and http://syantien.com/asp-net/localization-2/
-            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            /*var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
-            app.UseStaticFiles();
+            app.UseStaticFiles();*/
 
             //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             app.UseSwagger();
@@ -124,10 +125,10 @@ namespace RestfulAPIWithAspNet
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            var option = new RewriteOptions();
+            /*var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
 
-            app.UseRewriter(option);
+            app.UseRewriter(option);*/
 
             InitDataBase.Initialize(context);
 
