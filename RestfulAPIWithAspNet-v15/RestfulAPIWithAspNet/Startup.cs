@@ -30,7 +30,7 @@ namespace RestfulAPIWithAspNet
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,6 +39,14 @@ namespace RestfulAPIWithAspNet
             services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
+
+            services.AddScoped<BookBusiness>();
+            services.AddScoped<ContactBusiness>();
+            services.AddScoped<FilmBusiness>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             services.AddMvc();
 
@@ -50,19 +58,6 @@ namespace RestfulAPIWithAspNet
             var filtertOptions = new HyperMediaFilterOptions();
             filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
             services.AddSingleton(filtertOptions);
-
-            services.AddScoped<BookBusiness>();
-            services.AddScoped<ContactBusiness>();
-            services.AddScoped<FilmBusiness>();
-
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddScoped<IUrlHelper>(factory =>
-            {
-                var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
-                return new UrlHelper(actionContext);
-            });
-
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -18,10 +18,9 @@ namespace RestfulAPIWithAspNet.Controllers
         private BookBusiness _business;
         private IUrlHelper _URLHelper;
 
-        public BookController(BookBusiness business, IUrlHelper urlHelper)
+        public BookController(BookBusiness business)
         {
             _business = business;
-            _URLHelper = urlHelper;
         }
 
         [HttpGet]
