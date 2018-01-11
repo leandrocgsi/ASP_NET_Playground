@@ -4,31 +4,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Serialization;
 
 using Swashbuckle.AspNetCore.Swagger;
 
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
-using Microsoft.AspNetCore.Rewrite;
 using RestfulAPIWithAspNet.Business;
-using System.Collections.Generic;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using RestfulAPIWithAspNet.Filters;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using RestfulAPIWithAspNet.Middleware;
 using HATEOAS;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace RestfulAPIWithAspNet
 {
     public class Startup
     {
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -39,8 +30,9 @@ namespace RestfulAPIWithAspNet
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
@@ -48,35 +40,7 @@ namespace RestfulAPIWithAspNet
                 options.UseMySql(connection)
             );
 
-            //services.AddLocalization();
-
             services.AddMvc();
-            /*services.AddMvc(options =>
-                { //Content Negotiation
-                    options.RespectBrowserAcceptHeader = true;
-                    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-                })
-                .AddXmlSerializerFormatters()
-                .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
-                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());*/
-
-            //services.AddScoped<LanguageActionFilter>();
-
-            /*services.Configure<RequestLocalizationOptions>(
-                options =>
-                {
-                    var supportedCultures = new List<CultureInfo>
-                    {
-                        new CultureInfo("pt-BR"),
-                        new CultureInfo("en-US"),
-                        new CultureInfo("es-ES"),
-                    };
-
-                    options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
-                    options.SupportedCultures = supportedCultures;
-                    options.SupportedUICultures = supportedCultures;
-                });*/
 
             services.AddSwaggerGen(c =>
             {
@@ -96,41 +60,26 @@ namespace RestfulAPIWithAspNet
             {
                 var actionContext = factory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
-            }); 
+            });
 
-
-            //services.AddScoped<IRepository<Book>, GenericRepository<Book>>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MySQLContext context)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //SEE: https://damienbod.com/2015/10/21/asp-net-5-mvc-6-localization/ and http://syantien.com/asp-net/localization-2/
-            /*var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
-            app.UseRequestLocalization(locOptions.Value);
-            app.UseStaticFiles();*/
-
-            //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-            /*var option = new RewriteOptions();
-            option.AddRedirect("^$", "swagger");
-
-            app.UseRewriter(option);*/
-
-            InitDataBase.Initialize(context);
 
             app.UseMvc(routes =>
             {
