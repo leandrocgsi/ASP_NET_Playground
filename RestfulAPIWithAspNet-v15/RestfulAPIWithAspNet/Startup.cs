@@ -30,12 +30,14 @@ namespace RestfulAPIWithAspNet
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddMvc();
+
+            /*var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
@@ -46,9 +48,7 @@ namespace RestfulAPIWithAspNet
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-
-            services.AddMvc();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>)); */
 
             services.AddSwaggerGen(c =>
             {
