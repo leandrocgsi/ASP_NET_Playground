@@ -1,4 +1,4 @@
-﻿namespace RestfulAPIWithAspNet
+﻿/*namespace RestfulAPIWithAspNet
 {
     /// <summary>
     /// This class is required due to the way the default implementation of localization works.
@@ -13,4 +13,4 @@
     public class SharedResource
     {
     }
-}
+} */

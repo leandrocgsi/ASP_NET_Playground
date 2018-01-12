@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿/*using System.Globalization;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -23,4 +23,4 @@ namespace RestfulAPIWithAspNet.Filters
             base.OnActionExecuting(context);
         }
     }
-}
+}*/
