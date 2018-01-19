@@ -37,7 +37,7 @@ namespace RestfulAPIWithAspNet
         {
             services.AddMvc();
 
-            /*var connection = Configuration["MySqlConnection:MySqlConnectionString"];
+            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options =>
                 options.UseMySql(connection)
             );
@@ -48,7 +48,7 @@ namespace RestfulAPIWithAspNet
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>)); */
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             services.AddSwaggerGen(c =>
             {
