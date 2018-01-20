@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Data\Utils\**" />
+    <Compile Remove="HATEOAS\**" />
     <Content Remove="Data\Utils\**" />
+    <Content Remove="HATEOAS\**" />
     <EmbeddedResource Remove="Data\Utils\**" />
+    <EmbeddedResource Remove="HATEOAS\**" />
     <None Remove="Data\Utils\**" />
+    <None Remove="HATEOAS\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HATEOAS\HATEOAS.csproj" />
     <ProjectReference Include="..\I18N\I18N.csproj" />
   </ItemGroup>
 

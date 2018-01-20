@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-
-using Swashbuckle.AspNetCore.Swagger;
-
-using RestfulAPIWithAspNet.Repository;
-using RestfulAPIWithAspNet.Models;
-using RestfulAPIWithAspNet.Business;
-using RestfulAPIWithAspNet.Middleware;
+using Microsoft.Extensions.Options;
 using HATEOAS;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
+using RestfulAPIWithHATEOAS.HyperMedia;
 
-namespace RestfulAPIWithAspNet
+namespace RestfulAPIWithHATEOAS
 {
     public class Startup
     {
@@ -37,26 +33,13 @@ namespace RestfulAPIWithAspNet
         {
             services.AddMvc();
 
-            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
-            services.AddDbContext<MySQLContext>(options =>
-                options.UseMySql(connection)
-            );
-
-            services.AddScoped<BookBusiness>();
-            services.AddScoped<ContactBusiness>();
-            services.AddScoped<FilmBusiness>();
-
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
             var filtertOptions = new HyperMediaFilterOptions();
-            filtertOptions.ObjectContentResponseEnricherList.Add(new BookVOEnricher());
+            filtertOptions.ObjectContentResponseEnricherList.Add(new ProductModelEnricher());
             services.AddSingleton(filtertOptions);
         }
 
