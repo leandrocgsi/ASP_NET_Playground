@@ -22,7 +22,7 @@ namespace RestfulAPIWithAspNet.Business
 
         public BookBusiness(IRepository<Book> repository, ILogger<BookBusiness> logger)
         {
-            var x = Resource.WELCOME;
+            var message = Resource.WELCOME;
             _bookRepository = repository;
             _converter = new BookConverter();
             _logger = logger;

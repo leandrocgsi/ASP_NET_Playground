@@ -5,8 +5,6 @@ namespace UpBrasil.OTP.API.Utils
     public interface IParser<O, D>
     {
         D Parse(O origin);
-        /*List<D> ParseVOListToEntityList(List<O> origin);
-        List<D> ParseEntityListToVOList(List<O> origin);*/
     }
 
     public abstract class Parser<R>
