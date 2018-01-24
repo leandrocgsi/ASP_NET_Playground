@@ -8,3 +8,50 @@
 []()
 []()
 []()
+
+
+#Self Relationship
+
+```cs
+    public partial class MenuEntity
+    {
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+		
+        [Column("description")]
+        public string Description { get; set; }
+
+        [Column("link")]
+        public string Link { get; set; }
+
+        [Column("sort_position")]
+        public int SortPosition { get; set; }
+
+        [Column("status")]
+        public GenericStatus Status { get; set; }
+
+        public int? ancestor_id { get; set; }
+
+        public virtual MenuEntity AncestorMenu { get; set; }
+        public virtual ICollection<MenuEntity> DescendingMenus { get; set; }
+     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<MenuEntity>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            /*entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(100)
+                .HasColumnType("varchar");*/
+
+            entity
+				.HasOne(d => d.AncestorMenu)
+				.WithMany(p => p.DescendingMenus)
+				.HasForeignKey(d => d.ancestor_id);
+        });
+    }
+
+```	
