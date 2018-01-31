@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace UpBrasil.OTP.API.Utils
 {
@@ -6,5 +7,10 @@ namespace UpBrasil.OTP.API.Utils
     {
         [IgnoreDataMember]
         public bool Localized { get; private set; }
+
+        [IgnoreDataMember]
+        public Enum SourceEnum { get; private set; }
+
+        public string StackTrace { get; private set; }
     }
 }
