@@ -18,7 +18,7 @@ namespace WebWithAspNetCore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("name"));
+            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("MyDatabase"));
             services.AddMvc();
         }
 
