@@ -57,3 +57,123 @@
 ```	
 
 #Many To Many Relationship With Extra Columns
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization; 
+
+	
+.
+.
+.
+	
+[Table("permission", Schema = "my_schema")]
+[DataContract]
+public class PermissionEntity
+{
+	[Key]
+	[Column("id")]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	public Int32 PermissionId { get; set; }
+
+	[Column("description")]
+	public string Description { get; set; }
+
+	[Column("status")]
+	public GenericStatus Status { get; set; }
+
+	public virtual IList<ProfilePermissionEntity> ProfilePermissions { get; set; }
+}
+```   
+	
+.
+.
+.
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization; 
+	
+.
+.
+.
+
+[Table("profile", Schema = "my_schema")]
+[DataContract]
+public class ProfileEntity
+{
+	[Key]
+	[Column("id")]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	public Int32 ProfileId { get; set; }
+
+	[Column("title")]
+	public string Title { get; set; }
+
+	[Column("code")]
+	public string Code { get; set; }
+
+	[Column("last_update")]
+	public DateTime LastUpdate { get; set; }
+
+	[Column("status")]
+	public GenericStatus Status { get; set; }
+
+	public virtual IList<ProfilePermissionEntity> ProfilePermissions { get; set; }
+
+}
+```   
+	
+.
+.
+.
+
+```cs	
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+	
+.
+.
+.
+	
+[Table("profile_permission", Schema = "my_schema")]
+[DataContract]
+public class ProfilePermissionEntity
+{
+	[Key, Column(name: "profile_id", Order = 0)]
+	public int ProfileId { get; set; }
+
+	[Key, Column(name: "permission_id", Order = 1)]
+	public int PermissionId { get; set; }
+
+	public virtual ProfileEntity Profile { get; set; }
+	public virtual PermissionEntity Permission { get; set; }
+
+	[Column("status")]
+	public GenericStatus Status { get; set; }
+}
+
+//SEE: https://stackoverflow.com/questions/7050404/create-code-first-many-to-many-with-additional-fields-in-association-table
+```   
+	
+.
+.
+.
+
+```cs
+public enum GenericStatus
+{
+	[Display(Name ="Inativo")]
+	INACTIVE,
+
+	[Display(Name = "Ativo")]
+	ACTIVE
+}
+```
