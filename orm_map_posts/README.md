@@ -10,7 +10,7 @@
 []()
 
 
-#Self Relationship
+# Self Relationship
 
 ```cs
     public partial class MenuEntity
@@ -56,7 +56,7 @@
 
 ```	
 
-#Many To Many Relationship With Extra Columns
+# Many To Many Relationship With Extra Columns
 
 ```cs
 using System;
