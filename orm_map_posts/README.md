@@ -15,7 +15,7 @@
 ```cs
     public partial class MenuEntity
     {
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 		
         [Column("description")]
