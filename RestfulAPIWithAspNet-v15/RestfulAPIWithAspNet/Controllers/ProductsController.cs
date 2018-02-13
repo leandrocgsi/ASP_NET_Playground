@@ -17,10 +17,10 @@ namespace RestfulAPIWithAspNet.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var m = new ProductModel();
-            m.Id = 100;
-            m.Name = "test";
-            return await Task.FromResult(new OkObjectResult(m));
+            var product = new ProductModel();
+            product.Id = 100;
+            product.Name = "test";
+            return await Task.FromResult(new OkObjectResult(product));
         }
         
     }
