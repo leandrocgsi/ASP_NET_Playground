@@ -38,7 +38,7 @@ namespace RestfulAPIWithAspNet.Repository
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
             return result;
