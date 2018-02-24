@@ -13,7 +13,6 @@ using RestfulAPIWithAspNet.Business;
 using RestfulAPIWithAspNet.Middleware;
 using HATEOAS;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace RestfulAPIWithAspNet
