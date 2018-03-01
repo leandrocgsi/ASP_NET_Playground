@@ -28,8 +28,7 @@ namespace RestfulAPIWithAspNet.Repository
         public void Remove(string Id)
         {
             var itemToRemove = ContactsList.SingleOrDefault(r => r.MobilePhone == Id);
-            if (itemToRemove != null)
-                ContactsList.Remove(itemToRemove);
+            if (itemToRemove != null) ContactsList.Remove(itemToRemove);
         }
 
         public void Update(Contacts item)
