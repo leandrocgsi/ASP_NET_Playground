@@ -27,10 +27,10 @@ namespace RestfulAPIWithAspNet.Business
             _queryBuilder = new QueryBuilder<Contact>();
         }
 
-        public IEnumerable<ContactVO> FindAll()
+        public List<ContactVO> FindAll()
         {
             var contacts = _contactRepository.GetAll();
-            return _converter.ParseEntityListToVOList(contacts);
+            return _converter.ParseList(contacts);
         }
 
         public ContactVO GetByIdAsync(string id)
