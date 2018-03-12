@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UpBrasil.OTP.API.Utils
+namespace RestfulAPIWithAspNet.Utils.Converter
 {
     public interface IParser<O, D>
     {

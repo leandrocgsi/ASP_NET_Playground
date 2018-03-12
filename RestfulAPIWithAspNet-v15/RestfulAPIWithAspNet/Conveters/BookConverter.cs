@@ -1,8 +1,8 @@
 ﻿using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Utils.Converter;
 using System.Collections.Generic;
 using System.Linq;
-using UpBrasil.OTP.API.Utils;
 
 namespace RestfulAPIWithAspNet.Conveters
 {
