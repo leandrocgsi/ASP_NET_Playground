@@ -34,13 +34,13 @@ namespace RestfulAPIWithAspNet.Conveters
             };
         }
 
-        internal List<Book> ParseVOListToEntityList(List<BookVO> Books)
+        public List<Book> ParseList(List<BookVO> Books)
         {
             if (Books == null) return new List<Book>();
             return Books.Select(item => Parse(item)).ToList();
         }
 
-        public List<BookVO> ParseEntityListToVOList(List<Book> Books)
+        public List<BookVO> ParseList(List<Book> Books)
         {
             if (Books == null) return new List<BookVO>();
             return Books.Select(item => Parse(item)).ToList();
