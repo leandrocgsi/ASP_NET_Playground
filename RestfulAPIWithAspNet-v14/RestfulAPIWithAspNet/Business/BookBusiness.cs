@@ -32,7 +32,7 @@ namespace RestfulAPIWithAspNet.Business
         public IEnumerable<BookVO> FindAll()
         {
             var books = _bookRepository.GetAll();
-            return _converter.ParseEntityListToVOList(books);
+            return _converter.ParseList(books);
         }
 
         public BookVO GetByIdAsync(string id)
