@@ -31,11 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Implementations\" />
-    <Folder Include="Repository\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HATEOAS\HATEOAS.csproj" />
     <ProjectReference Include="..\I18N\I18N.csproj" />
   </ItemGroup>
