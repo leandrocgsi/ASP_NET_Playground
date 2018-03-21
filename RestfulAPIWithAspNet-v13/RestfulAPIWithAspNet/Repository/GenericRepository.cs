@@ -60,7 +60,7 @@ namespace RestfulAPIWithAspNet.Repository
             dataSet.Remove(entityToDelete);
         }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
             return dataSet.ToList();
         }

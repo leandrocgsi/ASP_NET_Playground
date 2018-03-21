@@ -9,7 +9,7 @@ namespace RestfulAPIWithAspNet.Repository
         T Update(T item);
         void Remove(object Id);
         void Remove(T item);
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
         T Find(object Id);
         bool Exists(object Id);
 
