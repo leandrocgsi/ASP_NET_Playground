@@ -57,7 +57,6 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
