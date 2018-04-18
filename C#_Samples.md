@@ -20,3 +20,19 @@ private List<List<StatementFutureDetail>> Build(IList<StatementFutureLayoutDetai
     return months;
 }
 ```
+
+```Csharp
+
+private List<StatementFutureLayoutDetail> ApplingFilterByDates(DateTime? startDate, DateTime? endDate, BaseResult<StatementFutureLayoutResponse> statementFuture)
+{
+    var from = ((DateTime)startDate).AddDays(-1);
+    var to = ((DateTime)endDate).AddDays(1);
+
+    return (
+        from d in statementFuture.Data.Detail
+        where startDate < GetDate(d.DataOperacao)
+        where endDate > GetDate(d.DataOperacao)
+        select d
+    ).ToList();
+}
+```
