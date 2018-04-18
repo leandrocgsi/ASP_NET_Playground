@@ -23,6 +23,21 @@ private List<List<StatementFutureDetail>> Build(IList<StatementFutureLayoutDetai
 
 ```Csharp
 
+if (startDate != null && endDate != null )
+{
+    List<StatementFutureLayoutDetail> details = ApplingFilterByDates(startDate, endDate, statementFuture);
+    statementFuture.Data.Detail = details;
+}
+else if (startDate != null && endDate == null)
+{
+    List<StatementFutureLayoutDetail> details = ApplingFilterByDates(startDate, DateTime.Now.AddDays(1), statementFuture);
+    statementFuture.Data.Detail = details;
+}
+
+.
+.
+.
+
 private List<StatementFutureLayoutDetail> ApplingFilterByDates(DateTime? startDate, DateTime? endDate, BaseResult<StatementFutureLayoutResponse> statementFuture)
 {
     var from = ((DateTime)startDate).AddDays(-1);
