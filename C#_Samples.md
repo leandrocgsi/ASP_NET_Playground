@@ -51,3 +51,12 @@ private List<StatementFutureLayoutDetail> ApplingFilterByDates(DateTime? startDa
     ).ToList();
 }
 ```
+
+```Csharp
+
+public string GetTotal(List<StatementFutureDetail> list)
+{
+    var total = list.Sum(item => item.Value);
+    return $"R$ {total.ToString("#,#.00#")}";
+}
+```
