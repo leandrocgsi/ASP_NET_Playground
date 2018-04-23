@@ -34,7 +34,7 @@ namespace RestfulAPIWithAspNet.Controllers
         public IEnumerable<BookVO> GetAllAsync()
         {
             var books = _bookRepository.GetAll();
-            return _converter.ParseEntityListToVOList(books);
+            return _converter.ParseList(books);
         }
 
         [HttpGet("{id}", Name = "GetBook")]

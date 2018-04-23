@@ -1,8 +1,8 @@
 ﻿using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Utils.Converter;
 using System.Collections.Generic;
 using System.Linq;
-using UpBrasil.OTP.API.Utils;
 
 namespace RestfulAPIWithAspNet.Conveters
 {
@@ -34,22 +34,17 @@ namespace RestfulAPIWithAspNet.Conveters
             };
         }
 
-        internal List<Book> ParseVOListToEntityList(List<BookVO> Books)
+        public List<Book> ParseList(List<BookVO> Books)
         {
             if (Books == null) return new List<Book>();
             return Books.Select(item => Parse(item)).ToList();
         }
 
-        internal List<BookVO> ParseEntityListToVOList(List<Book> Books)
+        public List<BookVO> ParseList(List<Book> Books)
         {
             if (Books == null) return new List<BookVO>();
             return Books.Select(item => Parse(item)).ToList();
         }
-
-        internal IEnumerable<BookVO> ParseEntityListToVOList(IEnumerable<Book> Books)
-        {
-            if (Books == null) return new List<BookVO>();
-            return Books.Select(item => Parse(item)).ToList();
-        }
+        
     }
 }
