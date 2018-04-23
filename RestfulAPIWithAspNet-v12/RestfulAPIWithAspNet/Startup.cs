@@ -11,10 +11,6 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
-using UpBrasil.OTP.API.Utils;
-using RestfulAPIWithAspNet.Conveters;
-using RestfulAPIWithAspNet.Models.Entities;
-using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Business;
 
 namespace RestfulAPIWithAspNet
@@ -61,7 +57,6 @@ namespace RestfulAPIWithAspNet
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //SEE: https://docs.microsoft.com/pt-br/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

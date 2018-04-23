@@ -27,10 +27,10 @@ namespace RestfulAPIWithAspNet.Business
             _queryBuilder = new QueryBuilder<Film>();
         }
 
-        public IEnumerable<FilmVO> FindAll()
+        public List<FilmVO> FindAll()
         {
             var films = _filmRepository.GetAll();
-            return _converter.ParseEntityListToVOList(films);
+            return _converter.ParseList(films);
         }
 
         public FilmVO GetByIdAsync(string id)

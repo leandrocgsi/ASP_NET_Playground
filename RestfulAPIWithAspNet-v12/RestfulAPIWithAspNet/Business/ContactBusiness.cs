@@ -30,7 +30,7 @@ namespace RestfulAPIWithAspNet.Business
         public IEnumerable<ContactVO> FindAll()
         {
             var contacts = _contactRepository.GetAll();
-            return _converter.ParseEntityListToVOList(contacts);
+            return _converter.ParseList(contacts);
         }
 
         public ContactVO GetByIdAsync(string id)
