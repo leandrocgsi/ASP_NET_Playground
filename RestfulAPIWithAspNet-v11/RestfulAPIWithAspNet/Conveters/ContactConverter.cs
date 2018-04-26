@@ -44,22 +44,17 @@ namespace RestfulAPIWithAspNet.Conveters
             };
         }
 
-        internal List<Contact> ParseVOListToEntityList(List<ContactVO> Contacts)
+        public List<Contact> ParseList(List<ContactVO> Contacts)
         {
             if (Contacts == null) return new List<Contact>();
             return Contacts.Select(item => Parse(item)).ToList();
         }
 
-        internal List<ContactVO> ParseEntityListToVOList(List<Contact> Contacts)
+        public List<ContactVO> ParseList(List<Contact> Contacts)
         {
             if (Contacts == null) return new List<ContactVO>();
             return Contacts.Select(item => Parse(item)).ToList();
         }
 
-        internal IEnumerable<ContactVO> ParseEntityListToVOList(IEnumerable<Contact> contacts)
-        {
-            if (contacts == null) return new List<ContactVO>();
-            return contacts.Select(item => Parse(item)).ToList();
-        }
     }
 }
