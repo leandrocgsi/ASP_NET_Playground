@@ -27,10 +27,10 @@ namespace RestfulAPIWithAspNet.Business
             _queryBuilder = new QueryBuilder<Book>();
         }
 
-        public IEnumerable<BookVO> FindAll()
+        public List<BookVO> FindAll()
         {
             var books = _bookRepository.GetAll();
-            return _converter.ParseEntityListToVOList(books);
+            return _converter.ParseList(books);
         }
 
         public BookVO GetByIdAsync(string id)
