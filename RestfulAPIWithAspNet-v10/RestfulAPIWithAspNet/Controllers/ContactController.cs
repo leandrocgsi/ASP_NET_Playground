@@ -26,7 +26,7 @@ namespace RestfulAPIWithAspNet.Controllers
         public IEnumerable<ContactVO> GetAll()
         {
             var contacts = _ContactRepository.GetAll();
-            return _converter.ParseEntityListToVOList(contacts);
+            return _converter.ParseList(contacts);
         }
 
         [HttpGet("{id}")]
