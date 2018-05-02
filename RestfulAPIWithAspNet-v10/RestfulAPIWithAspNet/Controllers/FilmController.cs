@@ -29,7 +29,7 @@ namespace RestfulAPIWithAspNet.Controllers
         [HttpGet]
         public IEnumerable<FilmVO> GetAllAsync()
         {
-            return _converter.ParseEntityListToVOList(_FilmRepository.GetAll());
+            return _converter.ParseList(_FilmRepository.GetAll());
         }
 
         [HttpGet("{id}", Name = "GetFilm")]
