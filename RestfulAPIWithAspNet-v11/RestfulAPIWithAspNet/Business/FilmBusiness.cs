@@ -30,7 +30,7 @@ namespace RestfulAPIWithAspNet.Business
         public IEnumerable<FilmVO> FindAll()
         {
             var films = _filmRepository.GetAll();
-            return _converter.ParseEntityListToVOList(films);
+            return _converter.ParseList(films);
         }
 
         public FilmVO GetByIdAsync(string id)
