@@ -1,8 +1,8 @@
 ﻿using RestfulAPIWithAspNet.Data.VO;
 using RestfulAPIWithAspNet.Models.Entities;
+using RestfulAPIWithAspNet.Utils.Converter;
 using System.Collections.Generic;
 using System.Linq;
-using UpBrasil.OTP.API.Utils;
 
 namespace RestfulAPIWithAspNet.Conveters
 {
@@ -36,22 +36,17 @@ namespace RestfulAPIWithAspNet.Conveters
             };
         }
 
-        internal List<Film> ParseVOListToEntityList(List<FilmVO> Films)
+        public List<Film> ParseList(List<FilmVO> Films)
         {
             if (Films == null) return new List<Film>();
             return Films.Select(item => Parse(item)).ToList();
         }
 
-        internal List<FilmVO> ParseEntityListToVOList(List<Film> Films)
+        public List<FilmVO> ParseList(List<Film> Films)
         {
             if (Films == null) return new List<FilmVO>();
             return Films.Select(item => Parse(item)).ToList();
         }
 
-        internal IEnumerable<FilmVO> ParseEntityListToVOList(IEnumerable<Film> Films)
-        {
-            if (Films == null) return new List<FilmVO>();
-            return Films.Select(item => Parse(item)).ToList();
-        }
     }
 }
