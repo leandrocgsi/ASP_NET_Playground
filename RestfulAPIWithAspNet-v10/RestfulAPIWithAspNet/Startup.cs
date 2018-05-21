@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using RestfulAPIWithAspNet.Repository;
 using RestfulAPIWithAspNet.Models;
 using Microsoft.AspNetCore.Rewrite;
-using UpBrasil.OTP.API.Utils;
+
 using RestfulAPIWithAspNet.Conveters;
 using RestfulAPIWithAspNet.Models.Entities;
 using RestfulAPIWithAspNet.Data.VO;
