@@ -60,3 +60,20 @@ public string GetTotal(List<StatementFutureDetail> list)
     return $"R$ {total.ToString("#,#.00#")}";
 }
 ```
+
+```Csharp
+public string GetSelected(string name1, string name2)
+{
+    if (RemoveDiacritics(name1.Trim()).Equals(RemoveDiacritics(name2.Trim()))) return "selected='selected'";
+    return "";
+}
+
+static string RemoveDiacritics(string text)
+{
+    return string.Concat(
+        text.Normalize(NormalizationForm.FormD)
+        .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) !=
+                                      UnicodeCategory.NonSpacingMark)
+      ).Normalize(NormalizationForm.FormC);
+}
+```
