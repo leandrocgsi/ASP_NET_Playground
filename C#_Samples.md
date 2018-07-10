@@ -62,6 +62,48 @@ public string GetTotal(List<StatementFutureDetail> list)
 ```
 
 ```Csharp
+    public static class MaskUtils
+    {
+        public static string Strip(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            return Regex.Replace(value, "[^0-9a-zA-Z]+", "");
+        }
+
+        public static string GetCpfCnpj(string cpf_cnpj)
+        {
+            if (IsCPF(cpf_cnpj)) return Int64.Parse(cpf_cnpj).ToString(@"000\.000\.000\-00");
+            else if (IsCNPJ(cpf_cnpj)) return Int64.Parse(cpf_cnpj).ToString(@"00\.000\.000\/0000\-00");
+            return "";
+        }
+
+        public static string GetCpfCnpj(string cpf, string cnpj)
+        {
+            if (IsCPF(cpf)) return Int64.Parse(cpf).ToString(@"000\.000\.000\-00");
+            else if (IsCNPJ(cnpj)) return Int64.Parse(cnpj).ToString(@"00\.000\.000\/0000\-00");
+            return "";
+        }
+
+        private static bool IsCPF(string value)
+        {
+            if (String.IsNullOrWhiteSpace(value) || Strip(value).Length > 11) return false;
+            return true;
+        }
+
+        private static bool IsCNPJ(string value)
+        {
+            if (String.IsNullOrWhiteSpace(value) || Strip(value).Length < 12) return false;
+            return true;
+        }
+    }
+}
+```
+
+```Csharp
 public string GetSelected(string name1, string name2)
 {
     if (RemoveDiacritics(name1.Trim()).Equals(RemoveDiacritics(name2.Trim()))) return "selected='selected'";
