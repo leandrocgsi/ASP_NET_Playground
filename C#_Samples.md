@@ -76,16 +76,39 @@ public string GetTotal(List<StatementFutureDetail> list)
 
         public static string GetCpfCnpj(string cpf_cnpj)
         {
-            if (IsCPF(cpf_cnpj)) return Int64.Parse(cpf_cnpj).ToString(@"000\.000\.000\-00");
-            else if (IsCNPJ(cpf_cnpj)) return Int64.Parse(cpf_cnpj).ToString(@"00\.000\.000\/0000\-00");
+            if (IsCPF(cpf_cnpj))
+            {
+                return ConvertCPF(cpf_cnpj.Trim());
+            }
+            else if (IsCNPJ(cpf_cnpj))
+            {
+                return ConvertCNPJ(cpf_cnpj.Trim());
+            }
             return "";
         }
 
         public static string GetCpfCnpj(string cpf, string cnpj)
         {
-            if (IsCPF(cpf)) return Int64.Parse(cpf).ToString(@"000\.000\.000\-00");
-            else if (IsCNPJ(cnpj)) return Int64.Parse(cnpj).ToString(@"00\.000\.000\/0000\-00");
+            if (IsCPF(cpf)) {
+                string strippedValue = Strip(cpf.Trim());
+                return ConvertCPF(strippedValue);
+            }
+            else if (IsCNPJ(cnpj))
+            {
+                string strippedValue = Strip(cnpj.Trim());
+                return ConvertCNPJ(strippedValue);
+            }
             return "";
+        }
+
+        public static string ConvertCPF(string cpf)
+        {
+            return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
+        }
+
+        public static string ConvertCNPJ(string cnpj)
+        {
+            return Convert.ToUInt64(cnpj).ToString(@"00\.000\.000\/0000\-00");
         }
 
         private static bool IsCPF(string value)
@@ -100,7 +123,6 @@ public string GetTotal(List<StatementFutureDetail> list)
             return true;
         }
     }
-}
 ```
 
 ```Csharp
