@@ -63,7 +63,7 @@ public string GetTotal(List<StatementFutureDetail> list)
 
 ```Csharp
 
-//http://jake.burgy.me/tidbits/
+// http://jake.burgy.me/tidbits/2016/03/10/get-display-name-for-enum-value.html
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
