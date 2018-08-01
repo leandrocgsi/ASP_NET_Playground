@@ -90,7 +90,32 @@ public static class EnumExtensions
 .
 .
 
+public static class SegmentEnumExtension
+{
+    public static string GetIconName(this EstablishmentSegment segment)
+    {
+        var icon = $"/img/emporium-icons/ic-{segment.ToString().ToLower()}.svg";
+        return icon;
+    }
 
+    public static string GetDisplayName(this EstablishmentSegment segment)
+    {
+        var attr = GetDisplayAttribute(segment);
+        return attr != null ? attr.Name : segment.ToString();
+        //return segment.GetDisplayName();
+    }
+
+    private static DisplayAttribute GetDisplayAttribute(object value)
+    {
+        Type type = value.GetType();
+        if (!type.IsEnum)
+        {
+            throw new ArgumentException(string.Format("Type {0} is not an enum", type));
+        }
+        var field = type.GetField(value.ToString());
+        return field == null ? null : field.GetCustomAttribute<DisplayAttribute>();
+    }
+}
 
 
 ```
