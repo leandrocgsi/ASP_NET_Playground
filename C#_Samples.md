@@ -62,6 +62,8 @@ public string GetTotal(List<StatementFutureDetail> list)
 ```
 
 ```Csharp
+
+//http://jake.burgy.me/tidbits/
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
